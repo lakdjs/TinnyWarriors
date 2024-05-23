@@ -6,21 +6,36 @@ using UnityEngine;
 namespace HexSystem
 {
     [SelectionBase]
-    public class Unit : MonoBehaviour
+    public class UnitMovement : MonoBehaviour     
     {
+        public enum  UnitType
+        {
+            melee,
+            enemy
+        }
+
+        [SerializeField] public UnitType unitType { get; private set; }
         [SerializeField] private int movementPoints = 5;
         public int MovementPoints { get => movementPoints; }
 
         [SerializeField] private float movementDuration = 1, rotationDuration = 0.3f;
 
+        [SerializeField] private HexGrid hexGrid;
+
+        private HexCoordinates _hexCoordinates;
+
         private GlowHighlight _glowHighlight;
         private Queue<Vector3> _pathPositions = new Queue<Vector3>();
 
-        public event Action<Unit> MovementFinished;
+        public event Action<UnitMovement> MovementFinished;
 
-        private void Awake()
+        private void Start()
         {
+            _hexCoordinates = GetComponent<HexCoordinates>();
             _glowHighlight = GetComponent<GlowHighlight>();
+            _hexCoordinates.SetCoords();
+            Debug.Log(_hexCoordinates);
+            hexGrid.GetTileAt(new Vector3Int(_hexCoordinates.GetHexCoords().x,0,_hexCoordinates.GetHexCoords().z)).SetType(HexType.Unit);
         }
 
         public void Deselect()
@@ -87,6 +102,11 @@ namespace HexSystem
                 Debug.Log("Movement finished!");
                 MovementFinished?.Invoke(this);
             }
+            
+        }
+        public void Attack()
+        {
+            Debug.Log("Attack");
         }
     }
 }

@@ -23,6 +23,11 @@ namespace HexSystem
                 {
                     if (hexGrid.GetTileAt(neighbourPosition).IsObstacle())
                         continue;
+                    if (hexGrid.GetTileAt(neighbourPosition).IsEnemy())
+                        continue;
+                    //if (hexGrid.GetTileAt(neighbourPosition).IsUnit())
+                       // continue;
+                    
 
                     int nodeCost = hexGrid.GetTileAt(neighbourPosition).GetCost();
                     int currentCost = costSoFar[currentNode];

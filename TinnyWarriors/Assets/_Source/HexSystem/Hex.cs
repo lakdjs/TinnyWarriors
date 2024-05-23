@@ -20,6 +20,7 @@ namespace HexSystem
                 HexType.Difficult => 20,
                 HexType.Default => 10,
                 HexType.Road => 5,
+                HexType.Unit => 1000,
                 _ => throw new Exception($"Hex of type {hexType} not supported")
             };
 
@@ -33,6 +34,10 @@ namespace HexSystem
             SetType(HexType.Obstacle);
         }
 
+        public void SetEnemy()
+        {
+            
+        }
         public void ResetBuilding()
         {
             if (_building == null)
@@ -52,6 +57,15 @@ namespace HexSystem
             return this.hexType == HexType.Obstacle;
         }
 
+        public bool IsEnemy()
+        {
+            return this.hexType == HexType.Enemy;
+        }
+
+        public bool IsUnit()
+        {
+            return this.hexType == HexType.Enemy;
+        }
         private void Awake()
         {
             _hexCoordinates = GetComponent<HexCoordinates>();
@@ -84,7 +98,9 @@ namespace HexSystem
         Default,
         Difficult,
         Road,
+        Enemy,
         Water,
+        Unit,
         Obstacle
     }
 }

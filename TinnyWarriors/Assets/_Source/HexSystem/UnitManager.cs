@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnitSystem;
+using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
 namespace HexSystem
@@ -16,17 +17,29 @@ namespace HexSystem
         [SerializeField] private Button removingButton;
         
         
+        
             //TODO переписать полностью! постройку в другой класс!
         public bool PlayerSelected { get; private set; }
         private bool _isBuilding;
         private bool _isRemoving;
+        private bool _isBattling;
     
     
         public bool PlayersTurn { get; private set; } = true;
+        public bool EnemiesTurn { get; private set; } = false;
 
         [SerializeField]
-        private Unit selectedUnit;
-        private Hex previouslySelectedHex;
+        private UnitMovement selectedUnit;
+
+        private UnitMovement _unitToAttack;
+        private HexCoordinates _selectedUnitCoords;
+        
+        private UnitMovement _selectedEnemy;
+        
+        
+        private Hex _previouslySelectedHex;
+
+        private Hex _lastHex;
 
         private void Awake()
         {
@@ -34,7 +47,8 @@ namespace HexSystem
             removingButton.onClick.AddListener(Remove);
             PlayerSelected = false;
             _isBuilding = false;
-            _isRemoving = false;    
+            _isRemoving = false;
+            _isBattling = false;
         }
 
         private void Build()
@@ -49,9 +63,17 @@ namespace HexSystem
         public void HandleUnitSelected(GameObject unit)
         {
             if (PlayersTurn == false)
+            {
+                if (_isBattling)
+                {
+                    
+                }
                 return;
+            }
+                
             PlayerSelected = true;
-            Unit unitReference = unit.GetComponent<Unit>();
+            UnitMovement unitReference = unit.GetComponent<UnitMovement>();
+            //Unit unitInfo = unit.GetComponent<Unit>();
 
             if (CheckIfTheSameUnitSelected(unitReference))
                 return;
@@ -59,7 +81,7 @@ namespace HexSystem
             PrepareUnitForMovement(unitReference);
         }
 
-        private bool CheckIfTheSameUnitSelected(Unit unitReference)
+        private bool CheckIfTheSameUnitSelected(UnitMovement unitReference)
         {
             if (this.selectedUnit == unitReference)
             {
@@ -100,6 +122,16 @@ namespace HexSystem
                 _isRemoving = false;
                 return;
             }
+
+            if (_isBattling)
+            {
+                Hex selectedHexToAttack = hexGO.GetComponent<Hex>();
+                if (selectedHexToAttack.IsEnemy())
+                {
+                    Battling(selectedHexToAttack);
+                    
+                }
+            }
         
             if (selectedUnit == null || PlayersTurn == false)
             {
@@ -115,21 +147,22 @@ namespace HexSystem
 
         }
 
-        private void PrepareUnitForMovement(Unit unitReference)
+        private void PrepareUnitForMovement(UnitMovement unitReference)
         {
             if (this.selectedUnit != null)
             {
                 ClearOldSelection();
             }
-
             this.selectedUnit = unitReference;
+            this._selectedUnitCoords = unitReference.gameObject.GetComponent<HexCoordinates>();
             this.selectedUnit.Select();
             movementSystem.ShowRange(this.selectedUnit, this.hexGrid);
         }
 
         private void ClearOldSelection()
         {
-            previouslySelectedHex = null;
+            _selectedUnitCoords = null;
+            _previouslySelectedHex = null;
             this.selectedUnit.Deselect();
             movementSystem.HideRange(this.hexGrid);
             this.selectedUnit = null;
@@ -138,18 +171,22 @@ namespace HexSystem
 
         private void HandleTargetHexSelected(Hex selectedHex)
         {
-            if (previouslySelectedHex == null || previouslySelectedHex != selectedHex)
+            if (_previouslySelectedHex == null || _previouslySelectedHex != selectedHex)
             {
-                previouslySelectedHex = selectedHex;
+                _previouslySelectedHex = selectedHex;
                 movementSystem.ShowPath(selectedHex.HexCoords, this.hexGrid);
+                _lastHex = selectedHex;
             }
             else
             {
+                _selectedUnitCoords.SetCoords();
+                hexGrid.GetTileAt(new Vector3Int(_selectedUnitCoords.GetHexCoords().x,0,_selectedUnitCoords.GetHexCoords().z)).SetType(HexType.Default);
                 movementSystem.MoveUnit(selectedUnit, this.hexGrid);
                 PlayersTurn = false;
+                _previouslySelectedHex.SetType(HexType.Unit);
                 selectedUnit.MovementFinished += ResetTurn;
+                _unitToAttack = selectedUnit;
                 ClearOldSelection();
-
             }
         }
 
@@ -174,10 +211,38 @@ namespace HexSystem
             return false;
         }
 
-        private void ResetTurn(Unit selectedUnit)
+        void EnemyTurn()
+        {
+            
+        }
+        private void ResetTurn(UnitMovement selectedUnit)
         {
             selectedUnit.MovementFinished -= ResetTurn;
-            PlayersTurn = true;
+            BattleTurn(selectedUnit);
+            //PlayersTurn = true;
+            //Debug.Log("Finished turn");
+        }
+
+        private void BattleTurn(UnitMovement selectedUnit)
+        {
+            _isBattling = true;
+            
+           //Debug.Log("battle");
+           
+        }
+
+        private void Battling(Hex hexToAttack)
+        {
+            foreach (Vector3Int direction in hexGrid.GetNeighboursFor(_lastHex.HexCoords) )
+            {
+                if (hexGrid.GetTileAt(direction).IsEnemy() && hexGrid.GetTileAt(direction) == hexToAttack)
+                {
+                    Debug.Log($"{_unitToAttack}Attacks ENEMY on: {hexToAttack.HexCoords}");
+                   // Debug.Log(direction);
+                   PlayersTurn = true;
+                   _isBattling = false;
+                }
+            }
         }
     }
 }

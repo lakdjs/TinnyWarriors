@@ -8,7 +8,7 @@ namespace HexSystem
         private Dictionary<Vector3Int, Hex> _hexTileDict = new Dictionary<Vector3Int, Hex>();
         private Dictionary<Vector3Int, List<Vector3Int>> _hexTileNeighboursDict = new Dictionary<Vector3Int, List<Vector3Int>>();
 
-        private void Start()
+        private void Awake()
         {
             foreach (Hex hex in FindObjectsOfType<Hex>())//Поменяю!!!
             {

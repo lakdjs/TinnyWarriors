@@ -19,6 +19,10 @@ namespace HexSystem
             offsetCoordinates = ConvertPositionToOffset(transform.position);
         }
 
+        public void SetCoords()
+        {
+            offsetCoordinates = ConvertPositionToOffset(transform.position);
+        }
         public static Vector3Int ConvertPositionToOffset(Vector3 position)
         {
             int x = Mathf.CeilToInt(position.x / XOffset);

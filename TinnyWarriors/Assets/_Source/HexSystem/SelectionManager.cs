@@ -37,7 +37,7 @@ namespace HexSystem
 
         private bool UnitSelected(GameObject result)
         {
-            return result.GetComponent<Unit>() != null;
+            return result.GetComponent<UnitMovement>() != null;
         }
 
         private bool FindTarget(Vector3 mousePosition, out GameObject result)

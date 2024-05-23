@@ -18,7 +18,7 @@ namespace HexSystem
             movementRange = new BFSResult();
         }
 
-        public void ShowRange(Unit selectedUnit, HexGrid hexGrid)
+        public void ShowRange(UnitMovement selectedUnit, HexGrid hexGrid)
         {
             CalcualteRange(selectedUnit, hexGrid);
 
@@ -32,7 +32,7 @@ namespace HexSystem
             }
         }
 
-        public void CalcualteRange(Unit selectedUnit, HexGrid hexGrid)
+        public void CalcualteRange(UnitMovement selectedUnit, HexGrid hexGrid)
         {
             movementRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestHex(selectedUnit.transform.position), selectedUnit.MovementPoints);
         }
@@ -54,7 +54,7 @@ namespace HexSystem
             }
         }
 
-        public void MoveUnit(Unit selectedUnit, HexGrid hexGrid)
+        public void MoveUnit(UnitMovement selectedUnit, HexGrid hexGrid)
         {
             Debug.Log("Moving unit " + selectedUnit.name);
             selectedUnit.MoveThroughPath(currentPath.Select(pos => hexGrid.GetTileAt(pos).transform.position).ToList());
