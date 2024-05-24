@@ -1,5 +1,6 @@
 ﻿using System;
 using HexSystem;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,6 +14,7 @@ namespace UnitSystem
     }
     public class Unit : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI youWon;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] protected UnitType CurrUnitType;
         [SerializeField] protected HexGrid hexGrid;
@@ -23,7 +25,10 @@ namespace UnitSystem
         private HexCoordinates _hexCoordinates;
         private void Start()
         {
-           
+            if (youWon != null)
+            {
+                youWon.enabled = false;
+            }
             CurrHp = MaxHp;
             hexGrid = FindObjectOfType<HexGrid>();
         }
@@ -43,6 +48,10 @@ namespace UnitSystem
             Debug.Log($"Curr hp is{CurrHp}");
             if (CurrHp <= 0)
             {
+                if (youWon != null)
+                {
+                    youWon.enabled = true;
+                }
                 hexCoordinates = this.gameObject.GetComponent<HexCoordinates>();
                 Debug.Log(hexCoordinates);
                 Vector3Int currCoords =
