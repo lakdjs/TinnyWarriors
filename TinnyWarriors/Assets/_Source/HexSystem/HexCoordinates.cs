@@ -22,6 +22,7 @@ namespace HexSystem
         public void SetCoords()
         {
             offsetCoordinates = ConvertPositionToOffset(transform.position);
+//            Debug.Log(offsetCoordinates);
         }
         public static Vector3Int ConvertPositionToOffset(Vector3 position)
         {

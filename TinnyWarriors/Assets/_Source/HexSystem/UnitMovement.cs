@@ -8,13 +8,7 @@ namespace HexSystem
     [SelectionBase]
     public class UnitMovement : MonoBehaviour     
     {
-        public enum  UnitType
-        {
-            melee,
-            enemy
-        }
-
-        [SerializeField] public UnitType unitType { get; private set; }
+        
         [SerializeField] private int movementPoints = 5;
         public int MovementPoints { get => movementPoints; }
 
@@ -22,7 +16,7 @@ namespace HexSystem
 
         [SerializeField] private HexGrid hexGrid;
 
-        private HexCoordinates _hexCoordinates;
+        public HexCoordinates _hexCoordinates { get; private set; }
 
         private GlowHighlight _glowHighlight;
         private Queue<Vector3> _pathPositions = new Queue<Vector3>();
@@ -31,6 +25,7 @@ namespace HexSystem
 
         private void Start()
         {
+            hexGrid = FindObjectOfType<HexGrid>();
             _hexCoordinates = GetComponent<HexCoordinates>();
             _glowHighlight = GetComponent<GlowHighlight>();
             _hexCoordinates.SetCoords();

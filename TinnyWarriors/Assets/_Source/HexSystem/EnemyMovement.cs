@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 namespace HexSystem
 {
+    [SelectionBase]
     public class EnemyMovement: MonoBehaviour
     {
         [SerializeField] private int movementPoints = 5;
@@ -24,10 +26,11 @@ namespace HexSystem
 
         private void Start()
         {
+            hexGrid = FindObjectOfType<HexGrid>();
             _hexCoordinates = GetComponent<HexCoordinates>();
             _glowHighlight = GetComponent<GlowHighlight>();
             _hexCoordinates.SetCoords();
-            Debug.Log(_hexCoordinates);
+//            Debug.Log(_hexCoordinates);
             hexGrid.GetTileAt(new Vector3Int(_hexCoordinates.GetHexCoords().x,0,_hexCoordinates.GetHexCoords().z)).SetType(HexType.Enemy);
         }
 
@@ -39,6 +42,15 @@ namespace HexSystem
         public void Select()
         {
             _glowHighlight.ToggleGlow();
+        }
+
+        public void SetCoords()
+        {
+            _hexCoordinates.SetCoords();
+        }
+        public Vector3Int GetCoords()
+        {
+            return _hexCoordinates.GetHexCoords();
         }
 
         public void MoveThroughPath(List<Vector3> currentPath)

@@ -7,6 +7,7 @@ namespace HexSystem
     {
         private Dictionary<Vector3Int, Hex> _hexTileDict = new Dictionary<Vector3Int, Hex>();
         private Dictionary<Vector3Int, List<Vector3Int>> _hexTileNeighboursDict = new Dictionary<Vector3Int, List<Vector3Int>>();
+        private Dictionary<Vector3Int, List<Vector3Int>> _hexTileNeighboursDictInRangeOf2 = new Dictionary<Vector3Int, List<Vector3Int>>();
 
         private void Awake()
         {
@@ -44,7 +45,27 @@ namespace HexSystem
             }
             return _hexTileNeighboursDict[hexCoordinates];
         }
+        public List<Vector3Int> GetNeighboursInRangeOf2(Vector3Int hexCoordinates)
+        {
+            if (_hexTileDict.ContainsKey(hexCoordinates) == false)
+                return new List<Vector3Int>();
 
+            if (_hexTileNeighboursDictInRangeOf2.ContainsKey(hexCoordinates))
+            {
+                return _hexTileNeighboursDictInRangeOf2[hexCoordinates];
+            }
+
+            _hexTileNeighboursDictInRangeOf2.Add(hexCoordinates, new List<Vector3Int>());
+
+            foreach (Vector3Int direction in Direction.GetDirListInRangeOf2(hexCoordinates.z))
+            {
+                if (_hexTileDict.ContainsKey(hexCoordinates + direction))
+                {
+                    _hexTileNeighboursDictInRangeOf2[hexCoordinates].Add(hexCoordinates + direction);
+                }
+            }
+            return _hexTileNeighboursDictInRangeOf2[hexCoordinates];
+        }
         public Vector3Int GetClosestHex(Vector3 worldposition)
         {
             worldposition.y = 0;
@@ -74,8 +95,42 @@ namespace HexSystem
             new Vector3Int(-1,0,0), //W
         };
 
+        public static List<Vector3Int> directionsOffsetOddInRangeOf2 = new List<Vector3Int>
+        {
+            new Vector3Int(-2,0,-1),
+            new Vector3Int(-1,0,-2),
+            new Vector3Int(0,0,-2),
+            new Vector3Int(1,0,-2),
+            new Vector3Int(-1,0,-1),
+            new Vector3Int(-2,0,0),
+            new Vector3Int(1,0,1),
+            new Vector3Int(1,0,2),
+            new Vector3Int(0,0,1),
+            new Vector3Int(-1,0,2),
+            new Vector3Int(-2,0,1),
+            new Vector3Int(-2,0,0)
+        };
+        public static List<Vector3Int> directionsOffsetEvenInRangeOf2 = new List<Vector3Int>
+        {
+            new Vector3Int(-1,0,-1),
+            new Vector3Int(-1,0,-2),
+            new Vector3Int(0,0,-2),
+            new Vector3Int(1,0,-2),
+            new Vector3Int(2,0,-1),
+            new Vector3Int(2,0,0),
+            new Vector3Int(2,0,1),
+            new Vector3Int(1,0,2),
+            new Vector3Int(0,0,2),
+            new Vector3Int(-1,0,2),
+            new Vector3Int(-1,0,1),
+            new Vector3Int(-2,0,0)
+        };
+
         public static bool IsOdd(int z) => z % 2 == 0 ? true : false;
         public static List<Vector3Int> GetDirectionList(int z)
             => z % 2 == 0 ? directionsOffsetEven : directionsOffsetOdd;
+
+        public static List<Vector3Int> GetDirListInRangeOf2(int z)
+            => z % 2 == 0 ? directionsOffsetEvenInRangeOf2 : directionsOffsetOddInRangeOf2;
     }
 }

@@ -25,8 +25,8 @@ namespace HexSystem
                         continue;
                     if (hexGrid.GetTileAt(neighbourPosition).IsEnemy())
                         continue;
-                    //if (hexGrid.GetTileAt(neighbourPosition).IsUnit())
-                       // continue;
+                    if (hexGrid.GetTileAt(neighbourPosition).IsUnit())
+                        continue;
                     
 
                     int nodeCost = hexGrid.GetTileAt(neighbourPosition).GetCost();

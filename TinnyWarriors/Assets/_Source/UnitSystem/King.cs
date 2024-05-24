@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnitSystem
 {
-    public class King : MonoBehaviour
+    public class King : Unit
     {
         
     }
