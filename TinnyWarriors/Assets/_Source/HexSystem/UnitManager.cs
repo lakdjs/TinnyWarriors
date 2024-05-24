@@ -11,17 +11,9 @@ namespace HexSystem
 
         [SerializeField]
         private MovementSystem movementSystem;
-
-        [SerializeField] private GameObject buildingPrefab;
-        [SerializeField] private Button buildingButton;
-        [SerializeField] private Button removingButton;
-        
-        
         
             //TODO переписать полностью! постройку в другой класс!
         public bool PlayerSelected { get; private set; }
-        private bool _isBuilding;
-        private bool _isRemoving;
         private bool _isBattling;
     
     
@@ -43,31 +35,32 @@ namespace HexSystem
 
         private void Awake()
         {
-            buildingButton.onClick.AddListener(Build);
-            removingButton.onClick.AddListener(Remove);
             PlayerSelected = false;
-            _isBuilding = false;
-            _isRemoving = false;
             _isBattling = false;
         }
 
-        private void Build()
-        {
-            _isBuilding = true;
-        }
-        private void Remove()
-        {
-            _isRemoving = true;
-        }
-
-        public void HandleUnitSelected(GameObject unit)
+        public void HandleEnemySelected(GameObject enemy)
         {
             if (PlayersTurn == false)
             {
                 if (_isBattling)
                 {
-                    
+                    EnemyMovement enemyReference = enemy.GetComponent<EnemyMovement>();
+                   //new Vector3Int(_selectedUnitCoords.GetHexCoords().x,0,_selectedUnitCoords.GetHexCoords().z))
+                   Vector3Int enemyCoords = enemyReference.gameObject.GetComponent<HexCoordinates>().GetHexCoords();
+                    Hex selectedHexToAttack =
+                        hexGrid.GetTileAt(new Vector3Int(enemyCoords.x, 0, enemyCoords.z));
+                    if (selectedHexToAttack.IsEnemy())
+                    {
+                        Battling(selectedHexToAttack);
+                    }
                 }
+            }
+        }
+        public void HandleUnitSelected(GameObject unit)
+        {
+            if (PlayersTurn == false)
+            {
                 return;
             }
                 
@@ -93,45 +86,6 @@ namespace HexSystem
 
         public void HandleTerrainSelected(GameObject hexGO)
         {
-            if (_isBuilding)
-            {
-                Hex selectedHexToBuild = hexGO.GetComponent<Hex>();
-                if (Direction.IsOdd(selectedHexToBuild.HexCoords.z))
-                {
-                    selectedHexToBuild.SetBuilding(Instantiate(buildingPrefab, new Vector3((selectedHexToBuild.HexCoords.x) * 2, 2,
-                        selectedHexToBuild.HexCoords.z * 1.73f), Quaternion.identity));
-                }
-                else
-                {
-                    selectedHexToBuild.SetBuilding(Instantiate(buildingPrefab, new Vector3(((selectedHexToBuild.HexCoords.x-1) * 2)+1, 2,
-                        selectedHexToBuild.HexCoords.z * 1.73f), Quaternion.identity));
-                }
-                _isBuilding = false;
-                selectedHexToBuild.SetType(HexType.Obstacle);
-                return;
-            }
-
-            if (_isRemoving)
-            {
-                Hex selectedHexToBuild = hexGO.GetComponent<Hex>();
-                if (selectedHexToBuild.IsObstacle())
-                {
-                    selectedHexToBuild.ResetBuilding();
-                }
-
-                _isRemoving = false;
-                return;
-            }
-
-            if (_isBattling)
-            {
-                Hex selectedHexToAttack = hexGO.GetComponent<Hex>();
-                if (selectedHexToAttack.IsEnemy())
-                {
-                    Battling(selectedHexToAttack);
-                    
-                }
-            }
         
             if (selectedUnit == null || PlayersTurn == false)
             {
@@ -213,7 +167,7 @@ namespace HexSystem
 
         void EnemyTurn()
         {
-            
+            Debug.Log("EnemyTurn");
         }
         private void ResetTurn(UnitMovement selectedUnit)
         {

@@ -56,7 +56,7 @@ namespace HexSystem
 
         public void MoveUnit(UnitMovement selectedUnit, HexGrid hexGrid)
         {
-            Debug.Log("Moving unit " + selectedUnit.name);
+            //Debug.Log("Moving unit " + selectedUnit.name);
             selectedUnit.MoveThroughPath(currentPath.Select(pos => hexGrid.GetTileAt(pos).transform.position).ToList());
 
         }

@@ -27,14 +27,14 @@ namespace CameraSystem
             else if(Input.GetAxis("Mouse ScrollWheel") < 0) offset.z -= zoom;
             offset.z = Mathf.Clamp(offset.z, -Mathf.Abs(zoomMax), -Mathf.Abs(zoomMin));
 
-            //if (Input.GetKey(KeyCode.Mouse1))
-            //{
+            if (Input.GetKey(KeyCode.Mouse1))
+            {
                 X = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivity;
                 Y += Input.GetAxis("Mouse Y") * sensitivity;
-                Y = Mathf.Clamp (Y, -limit, limit);
+                Y = Mathf.Clamp (Y, -limit, 0);
                 transform.localEulerAngles = new Vector3(-Y, X, 0);
                 transform.position = transform.localRotation * offset + target.position;
-            //}
+            }
             
         }
     }

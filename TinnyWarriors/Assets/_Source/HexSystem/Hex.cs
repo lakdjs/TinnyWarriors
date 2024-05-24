@@ -23,30 +23,10 @@ namespace HexSystem
                 HexType.Unit => 1000,
                 _ => throw new Exception($"Hex of type {hexType} not supported")
             };
-
-        public void SetBuilding(GameObject building)
-        {
-            if (_building != null)
-            {
-                return;
-            }
-            _building = building;
-            SetType(HexType.Obstacle);
-        }
-
+        
         public void SetEnemy()
         {
             
-        }
-        public void ResetBuilding()
-        {
-            if (_building == null)
-            {
-                return;
-            }
-            Destroy(_building);
-            _building = null;
-            SetType(HexType.Default);
         }
         public void SetType(HexType newHexType)
         {

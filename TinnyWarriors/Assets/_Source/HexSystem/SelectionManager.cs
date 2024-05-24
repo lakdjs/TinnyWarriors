@@ -12,6 +12,7 @@ namespace HexSystem
         //TODO поменять на явную подписку!!!!!!
         public UnityEvent<GameObject> OnUnitSelected;
         public UnityEvent<GameObject> TerrainSelected;
+        public UnityEvent<GameObject> OnEnemySelected;
 
         private void Awake()
         {
@@ -28,7 +29,11 @@ namespace HexSystem
                 {
                     OnUnitSelected?.Invoke(result);
                 }
-                else
+                if (EnemySelected(result))
+                {
+                    OnEnemySelected?.Invoke(result);
+                }
+                else if(IsTerrainSelected(result))
                 {
                     TerrainSelected?.Invoke(result);
                 }
@@ -38,6 +43,15 @@ namespace HexSystem
         private bool UnitSelected(GameObject result)
         {
             return result.GetComponent<UnitMovement>() != null;
+        }
+
+        private bool EnemySelected(GameObject result)
+        {
+            return result.GetComponent<EnemyMovement>() != null;
+        }
+        private bool IsTerrainSelected(GameObject result)
+        {
+            return result.GetComponent<Hex>() != null;
         }
 
         private bool FindTarget(Vector3 mousePosition, out GameObject result)

@@ -1,16 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace UnitSystem
 {
     public class Unit : MonoBehaviour, IUnit
     {
-        public int Damage { get; }
-        public int MaxHp { get; }
-        public int CurrHp { get; }
+        public int Damage { get; private set; }
+        public int MaxHp { get; private set; }
+        public int CurrHp { get; private set; }
 
-        public void TakeDamage()
+        private void Start()
         {
-            //
+            CurrHp = MaxHp;
+        }
+
+        public void TakeDamage(int dmg)
+        {
+            CurrHp -= dmg;
+            if (CurrHp <= 0)
+            {
+                Debug.Log("You died");
+            }
         }
 
         public void Attack()
@@ -18,9 +28,16 @@ namespace UnitSystem
             //
         }
 
-        public void Heal()
+        public void Heal(int hp)
         {
-            //
+            if (CurrHp + hp <= MaxHp)
+            {
+                CurrHp += hp;
+            }
+            else
+            {
+                CurrHp = MaxHp;
+            }
         }
     }
 }

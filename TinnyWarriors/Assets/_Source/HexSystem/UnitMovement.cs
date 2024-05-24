@@ -34,7 +34,7 @@ namespace HexSystem
             _hexCoordinates = GetComponent<HexCoordinates>();
             _glowHighlight = GetComponent<GlowHighlight>();
             _hexCoordinates.SetCoords();
-            Debug.Log(_hexCoordinates);
+            //Debug.Log(_hexCoordinates);
             hexGrid.GetTileAt(new Vector3Int(_hexCoordinates.GetHexCoords().x,0,_hexCoordinates.GetHexCoords().z)).SetType(HexType.Unit);
         }
 
@@ -94,12 +94,12 @@ namespace HexSystem
 
             if (_pathPositions.Count > 0)
             {
-                Debug.Log("Selecting the next position!");
+                //Debug.Log("Selecting the next position!");
                 StartCoroutine(RotationCoroutine(_pathPositions.Dequeue(), rotationDuration));
             }
             else
             {
-                Debug.Log("Movement finished!");
+                //Debug.Log("Movement finished!");
                 MovementFinished?.Invoke(this);
             }
             
