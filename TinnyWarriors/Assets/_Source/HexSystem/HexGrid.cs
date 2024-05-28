@@ -78,51 +78,51 @@ namespace HexSystem
         public static List<Vector3Int> directionsOffsetOdd = new List<Vector3Int>
         {
             new Vector3Int(-1,0,1), //N1
-            new Vector3Int(0,0,1), //N2
-            new Vector3Int(1,0,0), //E
-            new Vector3Int(0,0,-1), //S2
-            new Vector3Int(-1,0,-1), //S1
-            new Vector3Int(-1,0,0), //W
+            new Vector3Int(0,0,1), //N2  
+            new Vector3Int(1,0,0), //E   
+            new Vector3Int(0,0,-1), //S2  
+            new Vector3Int(-1,0,-1), //S1 
+            new Vector3Int(-1,0,0), //W 
         };
 
         public static List<Vector3Int> directionsOffsetEven = new List<Vector3Int>
         {
-            new Vector3Int(0,0,1), //N1
+            new Vector3Int(0,0,1), //N1 
             new Vector3Int(1,0,1), //N2
-            new Vector3Int(1,0,0), //E
-            new Vector3Int(1,0,-1), //S2
-            new Vector3Int(0,0,-1), //S1
+            new Vector3Int(1,0,0), //E  
+            new Vector3Int(1,0,-1), //S2 +
+            new Vector3Int(0,0,-1), //S1   
             new Vector3Int(-1,0,0), //W
         };
 
-        public static List<Vector3Int> directionsOffsetOddInRangeOf2 = new List<Vector3Int>
-        {
-            new Vector3Int(-2,0,-1),
-            new Vector3Int(-1,0,-2),
-            new Vector3Int(0,0,-2),
-            new Vector3Int(1,0,-2),
-            new Vector3Int(-1,0,-1),
-            new Vector3Int(-2,0,0),
-            new Vector3Int(1,0,1),
-            new Vector3Int(1,0,2),
-            new Vector3Int(0,0,1),
-            new Vector3Int(-1,0,2),
-            new Vector3Int(-2,0,1),
-            new Vector3Int(-2,0,0)
-        };
         public static List<Vector3Int> directionsOffsetEvenInRangeOf2 = new List<Vector3Int>
         {
             new Vector3Int(-1,0,-1),
-            new Vector3Int(-1,0,-2),
-            new Vector3Int(0,0,-2),
-            new Vector3Int(1,0,-2),
-            new Vector3Int(2,0,-1),
-            new Vector3Int(2,0,0),
-            new Vector3Int(2,0,1),
-            new Vector3Int(1,0,2),
-            new Vector3Int(0,0,2),
             new Vector3Int(-1,0,2),
-            new Vector3Int(-1,0,1),
+            new Vector3Int(0,0,2), // +
+            new Vector3Int(1,0,2),
+            new Vector3Int(2,0,1),
+            new Vector3Int(2,0,0),
+            new Vector3Int(2,0,-1),
+            new Vector3Int(1,0,-2),
+            new Vector3Int(0,0,-2),
+            new Vector3Int(-1,0,2),
+            new Vector3Int(-1,0,-2),
+            new Vector3Int(-2,0,0)
+        };
+        public static List<Vector3Int> directionsOffsetOddInRangeOf2 = new List<Vector3Int>
+        {
+            new Vector3Int(-2,0,1),
+            new Vector3Int(-1,0,2),
+            new Vector3Int(0,0,2),
+            new Vector3Int(1,0,2),
+            new Vector3Int(1,0,1),
+            new Vector3Int(2,0,0),
+            new Vector3Int(1,0,-1),
+            new Vector3Int(1,0,-2),
+            new Vector3Int(0,0,-2),
+            new Vector3Int(-1,0,-2),
+            new Vector3Int(-2,0,-1),
             new Vector3Int(-2,0,0)
         };
 

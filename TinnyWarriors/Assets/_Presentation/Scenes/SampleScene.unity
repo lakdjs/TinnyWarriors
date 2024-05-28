@@ -8594,6 +8594,10 @@ PrefabInstance:
       propertyPath: hexGrid
       value: 
       objectReference: {fileID: 1029880857}
+    - target: {fileID: 2104269661, guid: bb5e3aa98882c5c40823c55a18594eb2, type: 3}
+      propertyPath: movementPoints
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 3638754796843077882, guid: bb5e3aa98882c5c40823c55a18594eb2,
         type: 3}
       propertyPath: m_Name
@@ -8607,7 +8611,7 @@ PrefabInstance:
     - target: {fileID: 8963950963023724069, guid: bb5e3aa98882c5c40823c55a18594eb2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.10493
+      value: 0.104929924
       objectReference: {fileID: 0}
     - target: {fileID: 8963950963023724069, guid: bb5e3aa98882c5c40823c55a18594eb2,
         type: 3}

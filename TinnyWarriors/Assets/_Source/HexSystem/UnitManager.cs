@@ -190,28 +190,26 @@ namespace HexSystem
             
             Vector3Int lastUnitCoords = new Vector3Int(_lastHex.HexCoords.x, 0, _lastHex.HexCoords.z);
             Vector3Int kingCoords = new Vector3Int(king.GetCoords().x, 0, king.GetCoords().z);
-            Debug.Log(lastUnitCoords);
-            _bfs = GraphSearch.BFSGetRange(hexGrid, kingCoords, 30);
-            Debug.Log(_lastHex);
             hexGrid.GetTileAt(lastUnitCoords).SetType(HexType.Default);
+            _bfs = GraphSearch.BFSGetRange(hexGrid, kingCoords, 30);
+            
             foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(kingCoords) )
             {
-                if(_bfs.IsHexPositionInRange(direction) && lastUnitCoords.x == direction.x && lastUnitCoords.z == lastUnitCoords.z )
+                if(_bfs.IsHexPositionInRange(direction) &&  lastUnitCoords.x == direction.x && lastUnitCoords.z == direction.z)
                 {
-                    Debug.Log("In danger");
                     MoveEnemyKing();
                     return;
                 }
             }
             foreach (Vector3Int direction in hexGrid.GetNeighboursFor(kingCoords) )
             {
-                if(_bfs.IsHexPositionInRange(direction) && lastUnitCoords.x == direction.x && lastUnitCoords.z == lastUnitCoords.z)
+                if(_bfs.IsHexPositionInRange(direction)  && lastUnitCoords.x == direction.x && lastUnitCoords.z == direction.z)
                 {
-                    Debug.Log("In danger");
                     MoveEnemyKing();
                     return;
                 }
             }
+            Debug.Log("NOt in danger");
             hexGrid.GetTileAt(lastUnitCoords).SetType(HexType.Unit);
             
             //move melee or distant
@@ -221,6 +219,7 @@ namespace HexSystem
 
         private void MoveEnemyKing()
         {
+            Debug.Log("King movement");
             _enemyCoords = king.GetComponent<HexCoordinates>();
             _enemyCoords.SetCoords();
             hexGrid.GetTileAt(new Vector3Int(_enemyCoords.GetHexCoords().x,0,_enemyCoords.GetHexCoords().z)).SetType(HexType.Default);
@@ -244,6 +243,11 @@ namespace HexSystem
 
             PlayersTurn = true;
 
+        }
+
+        private void OtherEnemyTurn()
+        {
+            
         }
          
         private void EnemyTurn()
@@ -319,7 +323,7 @@ namespace HexSystem
         {
             foreach (Vector3Int direction in hexGrid.GetNeighboursFor(_lastHex.HexCoords) )
             {
-                Debug.Log(direction);
+                //Debug.Log(direction);
                 if (hexGrid.GetTileAt(direction).IsEnemy() && hexGrid.GetTileAt(direction) == hexToAttack)
                 {
                     _enemy.TakeDamage(_unit.GetUnitDamage());
