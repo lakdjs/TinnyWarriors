@@ -7,7 +7,7 @@ namespace HexSystem
     public class Hex : MonoBehaviour
     {
         [SerializeField] private GlowHighlight highlight;
-        private HexCoordinates _hexCoordinates;
+        public HexCoordinates _hexCoordinates { get; private set; }
         private GameObject _building;
 
         [SerializeField] private HexType hexType;
@@ -46,10 +46,15 @@ namespace HexSystem
         {
             return this.hexType == HexType.Enemy;
         }
-        private void Awake()
+
+        public void SetUp()
         {
             _hexCoordinates = GetComponent<HexCoordinates>();
             highlight = GetComponent<GlowHighlight>();
+        }
+        private void Awake()
+        {
+            
         }
         public void EnableHighlight()
         {

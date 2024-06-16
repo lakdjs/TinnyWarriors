@@ -93,8 +93,12 @@ namespace HexSystem
             //Unit unitInfo = unit.GetComponent<Unit>();
 
             if (CheckIfTheSameUnitSelected(unitReference))
+            {
                 return;
+            }
+                
             PrepareUnitForMovement(unitReference);
+            Debug.Log(unitReference);
         }
 
         private bool CheckIfTheSameUnitSelected(UnitMovement unitReference)
@@ -115,7 +119,6 @@ namespace HexSystem
                 return;
             }
             Hex selectedHex = hexGO.GetComponent<Hex>();
-        
 
             if (HandleHexOutOfRange(selectedHex.HexCoords) || HandleSelectedHexIsUnitHex(selectedHex.HexCoords))
                 return;

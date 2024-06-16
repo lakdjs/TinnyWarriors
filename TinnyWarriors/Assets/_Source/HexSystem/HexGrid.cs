@@ -5,18 +5,20 @@ namespace HexSystem
 {
     public class HexGrid : MonoBehaviour
     {
-        private Dictionary<Vector3Int, Hex> _hexTileDict = new Dictionary<Vector3Int, Hex>();
+        public Dictionary<Vector3Int, Hex> _hexTileDict = new Dictionary<Vector3Int, Hex>();
         private Dictionary<Vector3Int, List<Vector3Int>> _hexTileNeighboursDict = new Dictionary<Vector3Int, List<Vector3Int>>();
         private Dictionary<Vector3Int, List<Vector3Int>> _hexTileNeighboursDictInRangeOf2 = new Dictionary<Vector3Int, List<Vector3Int>>();
 
         private void Awake()
         {
-            foreach (Hex hex in FindObjectsOfType<Hex>())//Поменяю!!!
-            {
-                _hexTileDict[hex.HexCoords] = hex;
-            }
+            //_hexTileDict = new Dictionary<Vector3Int, Hex>();
         }
 
+        public void SetUpHexes()
+        {
+            
+            
+        }
         public Hex GetTileAt(Vector3Int hexCoordinates)
         {
             Hex result = null;

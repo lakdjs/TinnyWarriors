@@ -25,14 +25,18 @@ namespace HexSystem
 
         private void Start()
         {
+            
+            //Debug.Log(_hexCoordinates);
+            
+        }
+
+        public void SetUp()
+        {
             hexGrid = FindObjectOfType<HexGrid>();
             _hexCoordinates = GetComponent<HexCoordinates>();
             _glowHighlight = GetComponent<GlowHighlight>();
             _hexCoordinates.SetCoords();
-            //Debug.Log(_hexCoordinates);
-            hexGrid.GetTileAt(new Vector3Int(_hexCoordinates.GetHexCoords().x,0,_hexCoordinates.GetHexCoords().z)).SetType(HexType.Unit);
         }
-
         public void Deselect()
         {
             _glowHighlight.ToggleGlow(false);

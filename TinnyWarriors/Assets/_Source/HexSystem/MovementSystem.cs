@@ -13,6 +13,7 @@ namespace HexSystem
         {
             foreach (Vector3Int hexPosition in movementRange.GetRangePositions())
             {
+                Debug.Log(hexPosition);
                 hexGrid.GetTileAt(hexPosition).DisableHighlight();
             }
             movementRange = new BFSResult();
