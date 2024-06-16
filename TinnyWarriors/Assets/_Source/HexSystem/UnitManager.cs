@@ -71,6 +71,11 @@ namespace HexSystem
                 }
             }
         }
+
+        public void DeleteEnemyFromList(EnemyMovement enemy)
+        {
+            enemies.Remove(enemy);
+        }
         public void HandleUnitSelected(GameObject unit)
         {
             foreach (EnemyMovement enemy in enemies)

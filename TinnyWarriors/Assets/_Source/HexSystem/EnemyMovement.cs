@@ -17,6 +17,7 @@ namespace HexSystem
 
         [SerializeField] private HexGrid hexGrid;
 
+        private UnitManager _unitManager;
         private HexCoordinates _hexCoordinates;
 
         private GlowHighlight _glowHighlight;
@@ -26,12 +27,18 @@ namespace HexSystem
 
         private void Start()
         {
+            _unitManager = FindObjectOfType<UnitManager>();
             hexGrid = FindObjectOfType<HexGrid>();
             _hexCoordinates = GetComponent<HexCoordinates>();
             _glowHighlight = GetComponent<GlowHighlight>();
             _hexCoordinates.SetCoords();
 //            Debug.Log(_hexCoordinates);
             hexGrid.GetTileAt(new Vector3Int(_hexCoordinates.GetHexCoords().x,0,_hexCoordinates.GetHexCoords().z)).SetType(HexType.Enemy);
+        }
+
+        public void OnDestroy()
+        {
+            _unitManager.DeleteEnemyFromList(this);
         }
 
         public void Deselect()
