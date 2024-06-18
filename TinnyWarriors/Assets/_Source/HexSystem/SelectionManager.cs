@@ -28,17 +28,17 @@ namespace HexSystem
                 if (UnitSelected(result))
                 {
                     OnUnitSelected?.Invoke(result);
-                    Debug.Log("unit selected!");
+                    
                 }
                 if (EnemySelected(result))
                 {
                     OnEnemySelected?.Invoke(result);
-                    Debug.Log("enemy selected!");
+                    
                 }
                 else if(IsTerrainSelected(result))
                 {
                     TerrainSelected?.Invoke(result);
-                    Debug.Log("terrain selected!");
+                    
                 }
             }
         }

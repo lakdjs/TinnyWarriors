@@ -15,7 +15,7 @@ namespace HexSystem
         [SerializeField] private float movementDuration = 1, rotationDuration = 0.3f;
 
         [SerializeField] private HexGrid hexGrid;
-
+        private UnitManager _unitManager;
         public HexCoordinates _hexCoordinates { get; private set; }
 
         private GlowHighlight _glowHighlight;
@@ -30,12 +30,19 @@ namespace HexSystem
             
         }
 
+        
+
         public void SetUp()
         {
+            _unitManager = FindObjectOfType<UnitManager>();
             hexGrid = FindObjectOfType<HexGrid>();
             _hexCoordinates = GetComponent<HexCoordinates>();
             _glowHighlight = GetComponent<GlowHighlight>();
             _hexCoordinates.SetCoords();
+        }
+        private void OnDestroy()
+        {
+            _unitManager.DeleteUnitFromList(this);
         }
         public void Deselect()
         {

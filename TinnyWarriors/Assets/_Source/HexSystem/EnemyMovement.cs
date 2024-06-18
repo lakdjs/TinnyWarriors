@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnitSystem;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace HexSystem
     [SelectionBase]
     public class EnemyMovement: MonoBehaviour
     {
+        [field: SerializeField] public UnitType Type { get; private set; }
         [SerializeField] private int movementPoints = 5;
         public int MovementPoints { get => movementPoints; }
 
@@ -110,12 +112,12 @@ namespace HexSystem
 
             if (_pathPositions.Count > 0)
             {
-                Debug.Log("Selecting the next position!");
+                
                 StartCoroutine(RotationCoroutine(_pathPositions.Dequeue(), rotationDuration));
             }
             else
             {
-                Debug.Log("Movement finished!");
+                
                 MovementFinished?.Invoke(this);
             }
             

@@ -3,6 +3,7 @@ using System.Linq;
 using UnitSystem;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
+using Random = System.Random;
 
 namespace HexSystem
 {
@@ -21,13 +22,18 @@ namespace HexSystem
         private bool _isBattling;
 
         [SerializeField] private List<EnemyMovement> enemies;
+        [SerializeField] private List<UnitMovement> units;
         [SerializeField] private EnemyMovement king;
+        [SerializeField] private UnitMovement unitKing;
         public bool PlayersTurn { get; private set; } = true;
         public bool EnemiesTurn { get; private set; } = false;
 
         [SerializeField]
         private UnitMovement selectedUnit;
 
+        private BFSResult enemyMovementRange;
+        
+        
         private UnitMovement _unitToAttack;
         private Unit _unit;
         private Unit _enemy;
@@ -76,11 +82,21 @@ namespace HexSystem
         {
             enemies.Remove(enemy);
         }
+
+        public void DeleteUnitFromList(UnitMovement unit)
+        {
+            units.Remove(unit);
+        }
         public void HandleUnitSelected(GameObject unit)
         {
             foreach (EnemyMovement enemy in enemies)
             {
                 HexCoordinates coords = enemy.GetComponent<HexCoordinates>();
+                coords.SetCoords();
+            }
+            foreach (UnitMovement uni in units)
+            {
+                HexCoordinates coords = uni.GetComponent<HexCoordinates>();
                 coords.SetCoords();
             }
             if (PlayersTurn == false)
@@ -98,7 +114,7 @@ namespace HexSystem
             }
                 
             PrepareUnitForMovement(unitReference);
-            Debug.Log(unitReference);
+            
         }
 
         private bool CheckIfTheSameUnitSelected(UnitMovement unitReference)
@@ -142,6 +158,16 @@ namespace HexSystem
 
         private void ClearOldSelection()
         {
+            foreach (UnitMovement unit in units)
+            {
+                HexCoordinates coords = unit.GetComponent<HexCoordinates>();
+                coords.SetCoords();
+            }
+            foreach (EnemyMovement enemy in enemies)
+            {
+                HexCoordinates coords = enemy.GetComponent<HexCoordinates>();
+                coords.SetCoords();
+            }
             _selectedUnitCoords = null;
             _previouslySelectedHex = null;
             this.selectedUnit.Deselect();
@@ -201,7 +227,7 @@ namespace HexSystem
             hexGrid.GetTileAt(lastUnitCoords).SetType(HexType.Default);
             _bfs = GraphSearch.BFSGetRange(hexGrid, kingCoords, 30);
             
-            foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(kingCoords) )
+            foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(kingCoords))
             {
                 if(_bfs.IsHexPositionInRange(direction) &&  lastUnitCoords.x == direction.x && lastUnitCoords.z == direction.z)
                 {
@@ -217,9 +243,9 @@ namespace HexSystem
                     return;
                 }
             }
-            Debug.Log("NOt in danger");
             hexGrid.GetTileAt(lastUnitCoords).SetType(HexType.Unit);
             
+            PrepareOtherEnemyTurn();
             //move melee or distant
             
             //enemies[0].MoveThroughPath();
@@ -227,14 +253,13 @@ namespace HexSystem
 
         private void MoveEnemyKing()
         {
-            Debug.Log("King movement");
             _enemyCoords = king.GetComponent<HexCoordinates>();
             _enemyCoords.SetCoords();
             hexGrid.GetTileAt(new Vector3Int(_enemyCoords.GetHexCoords().x,0,_enemyCoords.GetHexCoords().z)).SetType(HexType.Default);
             Vector3Int lastUnitCoords = new Vector3Int(_lastHex.HexCoords.x, 0, _lastHex.HexCoords.z);
             Vector3Int kingCoords = new Vector3Int(king.GetCoords().x, 0, king.GetCoords().z);
             //_enemyCoords = king.GetComponent<HexCoordinates>();
-            foreach (Vector3Int direction in hexGrid.GetNeighboursFor(kingCoords) )
+            foreach (Vector3Int direction in hexGrid.GetNeighboursFor(kingCoords))
             {
                 if(direction != lastUnitCoords)
                 {
@@ -253,16 +278,144 @@ namespace HexSystem
 
         }
 
-        private void OtherEnemyTurn()
+        private void PrepareOtherEnemyTurn()
         {
+            //Vector3Int lastUnitCoords = new Vector3Int(_lastHex.HexCoords.x, 0, _lastHex.HexCoords.z);
+            //hexGrid.GetTileAt(lastUnitCoords).SetType(HexType.Default);
+            int enemyQuantity = enemies.Count;
+            int curEnemy = 0;
+            Random random = new();
+            while (true)
+            {
+                int enemy = random.Next(0, enemyQuantity);
+                if (enemies[enemy].Type != UnitType.king)
+                {
+                    curEnemy = enemy;
+                    break;
+                }
+            }
+            MoveOtherEnemy(curEnemy);
             
         }
-         
+
+        private void MoveOtherEnemy(int enemyId)
+        {
+            _enemyCoords = enemies[enemyId].GetComponent<HexCoordinates>();
+            _enemyCoords.SetCoords();
+            hexGrid.GetTileAt(new Vector3Int(_enemyCoords.GetHexCoords().x,0,_enemyCoords.GetHexCoords().z)).SetType(HexType.Default);
+            Vector3Int enemyCoords = new Vector3Int(enemies[enemyId].GetCoords().x, 0, enemies[enemyId].GetCoords().z);
+            List<Vector3Int> currentPath = new List<Vector3Int>();
+            List<Vector3Int> pathToKing = new List<Vector3Int>();
+            Vector3Int unitKingPos = unitKing._hexCoordinates.GetHexCoords();
+           // movementSystem.ShowPath(new Vector3Int(unitKingPos.x, 0, unitKingPos.z),hexGrid);
+            _bfs = GraphSearch.BFSGetRange(hexGrid, enemyCoords, 10000);
+            currentPath = _bfs.GetPathTo(new Vector3Int(unitKingPos.x, 0, unitKingPos.z));
+            if (currentPath.Count > 2)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    pathToKing.Add(currentPath[i]);
+                }
+            }
+            else
+            {
+                
+                EnemyAttack(enemyId,enemyCoords );
+                return;
+            }
+            //king.MoveThroughPath(new List<Vector3>{direction}.Select(pos => hexGrid.GetTileAt(new Vector3Int(direction.x,0,direction.z)).transform.position).ToList() );
+            enemies[enemyId].MoveThroughPath(pathToKing.Select(pos =>
+                hexGrid.GetTileAt(new Vector3Int(pathToKing[pathToKing.Count - 1].x, 0,
+                    pathToKing[pathToKing.Count - 1].z)).transform.position).ToList());
+            hexGrid.GetTileAt(pathToKing[pathToKing.Count - 1]).SetType(HexType.Enemy);
+            
+            EnemyAttack(enemyId,pathToKing[pathToKing.Count - 1]);
+           
+        }
+
+        private void EnemyAttack(int enemyID, Vector3Int lastEnemyPos)
+        {
+            Vector3Int enemyCoords = new Vector3Int(enemies[enemyID].GetCoords().x, 0, enemies[enemyID].GetCoords().z);
+            _bfs = GraphSearch.BFSGetRange(hexGrid, lastEnemyPos, 30);
+           
+            foreach (UnitMovement unit in units)
+            { 
+                Vector3Int lastUnitCoords = new Vector3Int(unit._hexCoordinates.GetHexCoords().x, 0,
+                    unit._hexCoordinates.GetHexCoords().z);
+               Debug.Log(lastUnitCoords);
+            }
+            if (enemies[enemyID].Type == UnitType.melee)
+            {
+                foreach (Vector3Int direction in hexGrid.GetNeighboursFor(lastEnemyPos) )
+                {
+                    Debug.Log(direction);
+                    foreach (UnitMovement unit in units)
+                    { 
+                        Vector3Int lastUnitCoords = new Vector3Int(unit._hexCoordinates.GetHexCoords().x, 0,
+                            unit._hexCoordinates.GetHexCoords().z);
+                        if(lastUnitCoords.x == direction.x && lastUnitCoords.z == direction.z)
+                        {
+                            foreach (UnitMovement unitToAttack in units)
+                            {
+                                if (unitToAttack._hexCoordinates.GetHexCoords().x == lastUnitCoords.x &&
+                                    unitToAttack._hexCoordinates.GetHexCoords().z == lastUnitCoords.z)
+                                {
+                                    unitToAttack.GetComponent<Unit>().TakeDamage(enemies[enemyID].GetComponent<Unit>().GetUnitDamage());
+                                    PlayersTurn = true;
+                                    return;
+                                }
+                            }
+
+                            
+                        }
+                    }
+                    
+                } 
+            }
+            if (enemies[enemyID].Type == UnitType.distant)
+            {
+                foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(lastEnemyPos))
+                {
+                    Debug.Log(direction);
+                    foreach (UnitMovement unit in units)
+                    { 
+                        Vector3Int lastUnitCoords = new Vector3Int(unit._hexCoordinates.GetHexCoords().x, 0,
+                            unit._hexCoordinates.GetHexCoords().z);
+                        if( lastUnitCoords.x == direction.x && lastUnitCoords.z == direction.z)
+                        {
+                            foreach (UnitMovement unitToAttack in units)
+                            {
+                                if (unitToAttack._hexCoordinates.GetHexCoords().x == lastUnitCoords.x &&
+                                    unitToAttack._hexCoordinates.GetHexCoords().z == lastUnitCoords.z)
+                                {
+                                    unitToAttack.GetComponent<Unit>().TakeDamage(enemies[enemyID].GetComponent<Unit>().GetUnitDamage());
+                                    PlayersTurn = true;
+                                    return;
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                
+            }
+            PlayersTurn = true;
+        }
+        //
         private void EnemyTurn()
         {
+            foreach (UnitMovement unit in units)
+            {
+                HexCoordinates coords = unit.GetComponent<HexCoordinates>();
+                coords.SetCoords();
+            }
+            foreach (EnemyMovement enemy in enemies)
+            {
+                HexCoordinates coords = enemy.GetComponent<HexCoordinates>();
+                coords.SetCoords();
+            }
             skipAttack.onClick.RemoveAllListeners();
             skipAttack.interactable = false;
-            Debug.Log("Enemies turn");
             CheckEnemyKing();
            // PlayersTurn = true;
         }

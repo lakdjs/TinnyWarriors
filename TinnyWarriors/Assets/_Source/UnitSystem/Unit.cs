@@ -15,6 +15,7 @@ namespace UnitSystem
     public class Unit : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI youWon;
+        [SerializeField] private TextMeshProUGUI youLost;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] protected UnitType CurrUnitType;
         [SerializeField] protected HexGrid hexGrid;
@@ -22,12 +23,18 @@ namespace UnitSystem
         [SerializeField] protected int MaxHp;
         [SerializeField] protected int CurrHp;
         [SerializeField] protected HexCoordinates hexCoordinates;
+        [SerializeField] private UnitManager unitManager;
         private HexCoordinates _hexCoordinates;
         private void Start()
         {
             if (youWon != null)
             {
                 youWon.enabled = false;
+            }
+
+            if (youLost != null)
+            {
+                youLost.enabled = false;
             }
             CurrHp = MaxHp;
             hexGrid = FindObjectOfType<HexGrid>();
@@ -45,12 +52,19 @@ namespace UnitSystem
         {
             CurrHp -= dmg;
             _healthBar.UpdateBar((float)CurrHp/(float)MaxHp);
-            Debug.Log($"Curr hp is{CurrHp}");
+           
             if (CurrHp <= 0)
             {
-                if (youWon != null)
+                if (youWon != null && unitManager != null)
                 {
                     youWon.enabled = true;
+                    unitManager.enabled = false;    
+                }
+
+                if (youLost != null && unitManager != null)
+                {
+                    youLost.enabled = true;
+                    unitManager.enabled = false;   
                 }
                 hexCoordinates = this.gameObject.GetComponent<HexCoordinates>();
                 Debug.Log(hexCoordinates);
@@ -59,7 +73,7 @@ namespace UnitSystem
                 hexGrid.GetTileAt(new Vector3Int(currCoords.x, 0,
                     currCoords.z)).SetType(HexType.Default);
                 Destroy(gameObject);
-                Debug.Log("You died");
+                
             }
         }
 

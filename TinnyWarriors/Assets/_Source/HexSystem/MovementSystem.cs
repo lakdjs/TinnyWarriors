@@ -13,7 +13,7 @@ namespace HexSystem
         {
             foreach (Vector3Int hexPosition in movementRange.GetRangePositions())
             {
-                Debug.Log(hexPosition);
+                
                 hexGrid.GetTileAt(hexPosition).DisableHighlight();
             }
             movementRange = new BFSResult();
@@ -54,14 +54,18 @@ namespace HexSystem
                 }
             }
         }
+        
 
         public void MoveUnit(UnitMovement selectedUnit, HexGrid hexGrid)
         {
             //Debug.Log("Moving unit " + selectedUnit.name);
             selectedUnit.MoveThroughPath(currentPath.Select(pos => hexGrid.GetTileAt(pos).transform.position).ToList());
-
         }
 
+        public void MoveEnemy(EnemyMovement enemy, HexGrid hexGrid)
+        {
+            enemy.MoveThroughPath(currentPath.Select(pos => hexGrid.GetTileAt(pos).transform.position).ToList());
+        }
         public bool IsHexInRange(Vector3Int hexPosition)
         {
             return movementRange.IsHexPositionInRange(hexPosition);

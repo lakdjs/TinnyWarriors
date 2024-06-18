@@ -2252,6 +2252,10 @@ PrefabInstance:
       propertyPath: hexGrid
       value: 
       objectReference: {fileID: 1029880857}
+    - target: {fileID: 2104269661, guid: bb5e3aa98882c5c40823c55a18594eb2, type: 3}
+      propertyPath: movementPoints
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3638754796843077882, guid: bb5e3aa98882c5c40823c55a18594eb2,
         type: 3}
       propertyPath: m_Name
@@ -2802,6 +2806,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1819682634767763535, guid: b8e2fa59d5ad48944b1afe97416a25a2,
+        type: 3}
+      propertyPath: movementPoints
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819682634767763535, guid: b8e2fa59d5ad48944b1afe97416a25a2,
+        type: 3}
+      propertyPath: <Type>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7688542575564702013, guid: b8e2fa59d5ad48944b1afe97416a25a2,
         type: 3}
       propertyPath: m_Name
@@ -2960,6 +2974,7 @@ MonoBehaviour:
   - {fileID: 1329996844}
   - {fileID: 1894515579}
   king: {fileID: 1661863873}
+  unitKing: {fileID: 2043296007}
   selectedUnit: {fileID: 0}
 --- !u!4 &598714471 stripped
 Transform:
@@ -5179,6 +5194,11 @@ PrefabInstance:
       propertyPath: youWon
       value: 
       objectReference: {fileID: 1247701274}
+    - target: {fileID: 4166368016286818742, guid: b66be2429e8944d4db2ba52fdf81b9a6,
+        type: 3}
+      propertyPath: <Type>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7087126053993684099, guid: b66be2429e8944d4db2ba52fdf81b9a6,
         type: 3}
       propertyPath: m_RootOrder
@@ -5360,6 +5380,11 @@ PrefabInstance:
     - target: {fileID: 933031730532003, guid: 503d674d730c9b34aa2bff7c1fd5f673, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459928456907797585, guid: 503d674d730c9b34aa2bff7c1fd5f673,
+        type: 3}
+      propertyPath: movementPoints
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5683549240269245761, guid: 503d674d730c9b34aa2bff7c1fd5f673,
         type: 3}
@@ -6142,6 +6167,11 @@ PrefabInstance:
     - target: {fileID: 933031730532003, guid: 503d674d730c9b34aa2bff7c1fd5f673, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459928456907797585, guid: 503d674d730c9b34aa2bff7c1fd5f673,
+        type: 3}
+      propertyPath: movementPoints
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5683549240269245761, guid: 503d674d730c9b34aa2bff7c1fd5f673,
         type: 3}
@@ -8147,6 +8177,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819682634767763535, guid: b8e2fa59d5ad48944b1afe97416a25a2,
+        type: 3}
+      propertyPath: movementPoints
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819682634767763535, guid: b8e2fa59d5ad48944b1afe97416a25a2,
+        type: 3}
+      propertyPath: <Type>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7688542575564702013, guid: b8e2fa59d5ad48944b1afe97416a25a2,
         type: 3}
