@@ -46,12 +46,12 @@ namespace HexSystem
         }
         public void Deselect()
         {
-            _glowHighlight.ToggleGlow(false);
+           // _glowHighlight.ToggleGlow(false);
         }
 
         public void Select()
         {
-            _glowHighlight.ToggleGlow();
+           // _glowHighlight.ToggleGlow();
         }
 
         public void MoveThroughPath(List<Vector3> currentPath)

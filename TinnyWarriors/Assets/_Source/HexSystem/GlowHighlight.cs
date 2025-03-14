@@ -21,11 +21,12 @@ namespace HexSystem
         private void Awake()
         {
             PrepareMaterialDictionaries();
-            //originalGlowColor = glowMaterial.GetColor("_GlowColor");
+            originalGlowColor = glowMaterial.GetColor("_GlowColor");
         }
 
         private void PrepareMaterialDictionaries()
         {
+            
             foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
             {
                 Material[] originalMaterials = renderer.materials;

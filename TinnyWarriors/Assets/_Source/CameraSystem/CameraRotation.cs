@@ -23,12 +23,13 @@ namespace CameraSystem
 
         void Update ()
         {
-            if(Input.GetAxis("Mouse ScrollWheel") > 0) offset.z += zoom;
-            else if(Input.GetAxis("Mouse ScrollWheel") < 0) offset.z -= zoom;
-            offset.z = Mathf.Clamp(offset.z, -Mathf.Abs(zoomMax), -Mathf.Abs(zoomMin));
+            
 
             if (Input.GetKey(KeyCode.Mouse1))
             {
+                if (Input.GetAxis("Mouse ScrollWheel") > 0) offset.z += zoom;
+                else if (Input.GetAxis("Mouse ScrollWheel") < 0) offset.z -= zoom;
+                offset.z = Mathf.Clamp(offset.z, -Mathf.Abs(zoomMax), -Mathf.Abs(zoomMin));
                 X = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivity;
                 Y += Input.GetAxis("Mouse Y") * sensitivity;
                 Y = Mathf.Clamp (Y, -limit, 0);
