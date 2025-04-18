@@ -319,9 +319,13 @@ namespace HexSystem
             }
             else
             {
-                
-                EnemyAttack(enemyId,enemyCoords );
-                return;
+                for (int i = 0; i < currentPath.Count; i++)
+                {
+                    pathToKing.Add(currentPath[i]);
+                }
+
+                //EnemyAttack(enemyId,enemyCoords );
+                //return;
             }
             //king.MoveThroughPath(new List<Vector3>{direction}.Select(pos => hexGrid.GetTileAt(new Vector3Int(direction.x,0,direction.z)).transform.position).ToList() );
             enemies[enemyId].MoveThroughPath(pathToKing.Select(pos =>

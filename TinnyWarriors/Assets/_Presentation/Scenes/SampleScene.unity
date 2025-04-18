@@ -3097,7 +3097,12 @@ MonoBehaviour:
   - {fileID: 1678404197}
   - {fileID: 1329996844}
   - {fileID: 1894515579}
-  units: []
+  units:
+  - {fileID: 2104269664}
+  - {fileID: 2043296007}
+  - {fileID: 9161385179631385573}
+  - {fileID: 647271066}
+  - {fileID: 576491285}
   king: {fileID: 1661863873}
   unitKing: {fileID: 2043296007}
   selectedUnit: {fileID: 0}
@@ -9539,6 +9544,7 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 315627987}
   - {fileID: 832575519}
   - {fileID: 410087041}
   - {fileID: 330585546}
@@ -9553,5 +9559,4 @@ SceneRoots:
   - {fileID: 300452086}
   - {fileID: 1805270917}
   - {fileID: 336837488}
-  - {fileID: 315627987}
   - {fileID: 996169398}
