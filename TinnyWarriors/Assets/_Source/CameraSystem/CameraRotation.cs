@@ -13,6 +13,9 @@ namespace CameraSystem
         [SerializeField] float zoomMin = 3; // мин. увеличение
         [SerializeField] float X, Y;
 
+        private Education _education;
+        private bool _isPkmPressed = false;
+
         void Start () 
         {
             limit = Mathf.Abs(limit);
@@ -20,13 +23,26 @@ namespace CameraSystem
             offset = new Vector3(offset.x, offset.y, -Mathf.Abs(zoomMax)/2);
             transform.position = target.position + offset;
         }
+        public void Construct(Education education)
+        {
+            _education = education;
+        }
 
         void Update ()
         {
-            
-
             if (Input.GetKey(KeyCode.Mouse1))
             {
+
+                if(_education != null)
+                {
+                    if(_isPkmPressed == false)
+                    {
+                        _education.onPKMtapped.Invoke();
+                        Debug.Log("Pkm pressed");
+                        _isPkmPressed = true;
+                    }
+                }
+
                 if (Input.GetAxis("Mouse ScrollWheel") > 0) offset.z += zoom;
                 else if (Input.GetAxis("Mouse ScrollWheel") < 0) offset.z -= zoom;
                 offset.z = Mathf.Clamp(offset.z, -Mathf.Abs(zoomMax), -Mathf.Abs(zoomMin));
@@ -35,8 +51,7 @@ namespace CameraSystem
                 Y = Mathf.Clamp (Y, -limit, 0);
                 transform.localEulerAngles = new Vector3(-Y, X, 0);
                 transform.position = transform.localRotation * offset + target.position;
-            }
-            
+            }         
         }
     }
 }

@@ -51,13 +51,21 @@ namespace HexSystem
 
         private Hex _lastHex;
 
+        private Education _education;
+        private bool _isPlayerSelectedFirstTime = false;
+        private bool _isTerraianSelectedFirstTime = false;
+        private bool _isPlayerMovedToEnemyFirstTime = false;
+
         private void Awake()
         {
             PlayerSelected = false;
             _isBattling = false;
             skipAttack.interactable = false;
         }
-
+        public void Construct(Education education)
+        {
+            _education = education;
+        }
         public void HandleEnemySelected(GameObject enemy)
         {
             if (PlayersTurn == false)
@@ -103,7 +111,15 @@ namespace HexSystem
             {
                 return;
             }
-                
+            if (_education != null)
+            {
+                if (_isPlayerSelectedFirstTime == false)
+                {
+                    _education.onPlayerTargeted.Invoke();
+                    Debug.Log("Player Selected first time");
+                    _isPlayerSelectedFirstTime = true;
+                }
+            }
             PlayerSelected = true;
             UnitMovement unitReference = unit.GetComponent<UnitMovement>();
             //Unit unitInfo = unit.GetComponent<Unit>();
@@ -133,6 +149,15 @@ namespace HexSystem
             if (selectedUnit == null || PlayersTurn == false)
             {
                 return;
+            }
+            if (_education != null)
+            {
+                if (_isTerraianSelectedFirstTime == false)
+                {
+                    _education.onPathTargeted.Invoke();
+                    Debug.Log("Terrain Selected first time");
+                    _isTerraianSelectedFirstTime = true;
+                }
             }
             Hex selectedHex = hexGO.GetComponent<Hex>();
 
@@ -194,6 +219,15 @@ namespace HexSystem
                 _previouslySelectedHex.SetType(HexType.Unit);
                 selectedUnit.MovementFinished += ResetTurn;
                 _unitToAttack = selectedUnit;
+                if (_education != null)
+                {
+                    if (_isPlayerMovedToEnemyFirstTime == false)
+                    {
+                        _education.onMovedToEnemy.Invoke();
+                        Debug.Log("Moved to enemy first time");
+                        _isPlayerMovedToEnemyFirstTime = true;
+                    }
+                }
                 ClearOldSelection();
             }
         }

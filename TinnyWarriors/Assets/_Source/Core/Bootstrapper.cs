@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
+using CameraSystem;
 using HexSystem;
+using UnitSystem;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +14,10 @@ namespace Core
         [SerializeField] private List<UnitMovement>  units;
         [SerializeField] private List<EnemyMovement>  enemies;
         [SerializeField] private HexGrid hexGrid;
+        [SerializeField] private CameraRotation cameraRotation;
+        [SerializeField] private Education education;
+        [SerializeField] private UnitManager unitManager;
+        [SerializeField] private UnitSystem.Unit unit;
 
         private void Awake()
         {
@@ -38,6 +45,12 @@ namespace Core
                 enemy._hexCoordinates.SetCoords();
                 Vector3Int coords = new Vector3Int(enemy._hexCoordinates.GetHexCoords().x,0,enemy._hexCoordinates.GetHexCoords().z);
                 hexGrid.GetTileAt(coords).SetType(HexType.Enemy);
+            }
+            if(education != null)
+            {
+                cameraRotation.Construct(education);
+                unitManager.Construct(education);
+                unit.Construct(education);
             }
             
         }

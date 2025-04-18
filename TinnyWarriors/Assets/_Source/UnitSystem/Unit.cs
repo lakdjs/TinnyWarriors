@@ -14,8 +14,8 @@ namespace UnitSystem
     }
     public class Unit : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI youWon;
-        [SerializeField] private TextMeshProUGUI youLost;
+        [SerializeField] private GameObject youWon;
+        [SerializeField] private GameObject youLost;
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] protected UnitType CurrUnitType;
         [SerializeField] protected HexGrid hexGrid;
@@ -24,22 +24,29 @@ namespace UnitSystem
         [SerializeField] protected int CurrHp;
         [SerializeField] protected HexCoordinates hexCoordinates;
         [SerializeField] private UnitManager unitManager;
+ 
         private HexCoordinates _hexCoordinates;
+
+        private Education _education;
+        private bool _isDiedFirstTime = false;
         private void Start()
         {
             if (youWon != null)
             {
-                youWon.enabled = false;
+                youWon.SetActive(false);
             }
 
             if (youLost != null)
             {
-                youLost.enabled = false;
+                youLost.SetActive(false); 
             }
             CurrHp = MaxHp;
             hexGrid = FindObjectOfType<HexGrid>();
         }
-
+        public void Construct(Education education)
+        {
+            _education = education;
+        }
         public int GetUnitDamage()
         {
             return Damage;
@@ -55,15 +62,24 @@ namespace UnitSystem
            
             if (CurrHp <= 0)
             {
+                if(_education != null)
+                {
+                    if(_isDiedFirstTime == false)
+                    {
+                        _education.onEnemyDied.Invoke();
+                        Debug.Log("Enemy died");
+                        _isDiedFirstTime = true;
+                    }
+                }
                 if (youWon != null && unitManager != null)
                 {
-                    youWon.enabled = true;
+                    youWon.SetActive(true);
                     unitManager.enabled = false;    
                 }
 
                 if (youLost != null && unitManager != null)
                 {
-                    youLost.enabled = true;
+                    youLost.SetActive(true);
                     unitManager.enabled = false;   
                 }
                 hexCoordinates = this.gameObject.GetComponent<HexCoordinates>();

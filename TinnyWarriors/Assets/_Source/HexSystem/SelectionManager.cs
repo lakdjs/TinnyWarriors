@@ -14,11 +14,15 @@ namespace HexSystem
         public UnityEvent<GameObject> TerrainSelected;
         public UnityEvent<GameObject> OnEnemySelected;
 
+
+
         private void Awake()
         {
             if (mainCamera == null)
                 mainCamera = Camera.main;
         }
+
+       
 
         public void HandleClick(Vector3 mousePosition)
         {
@@ -27,6 +31,7 @@ namespace HexSystem
             {
                 if (UnitSelected(result))
                 {
+                    
                     OnUnitSelected?.Invoke(result);
                     
                 }
@@ -37,8 +42,8 @@ namespace HexSystem
                 }
                 else if(IsTerrainSelected(result))
                 {
+                   
                     TerrainSelected?.Invoke(result);
-                    
                 }
             }
         }
