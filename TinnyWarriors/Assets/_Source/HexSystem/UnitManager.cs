@@ -337,9 +337,10 @@ namespace HexSystem
             //Vector3Int lastUnitCoords = new Vector3Int(_lastHex.HexCoords.x, 0, _lastHex.HexCoords.z);
             //hexGrid.GetTileAt(lastUnitCoords).SetType(HexType.Default);
             int enemyQuantity = enemies.Count;
-            if(enemyQuantity == 1)
+            if(enemyQuantity <= 1)
             {
                 enemyKingUnit.Wining();
+                return;
             }
             int curEnemy = 0;
             Random random = new();
