@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CameraSystem
@@ -15,7 +16,10 @@ namespace CameraSystem
 
         private Education _education;
         private bool _isPkmPressed = false;
-
+        public void DeleteEducation()
+        {
+            _education = null;
+        }
         void Start () 
         {
             limit = Mathf.Abs(limit);
@@ -37,9 +41,12 @@ namespace CameraSystem
                 {
                     if(_isPkmPressed == false)
                     {
-                        _education.onPKMtapped.Invoke();
-                        Debug.Log("Pkm pressed");
-                        _isPkmPressed = true;
+                        
+                            _education.onPKMtapped.Invoke();
+                            Debug.Log("Pkm pressed");
+                            _isPkmPressed = true;
+                        
+                        
                     }
                 }
 

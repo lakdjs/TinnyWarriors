@@ -1,3 +1,4 @@
+using CameraSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ public class Education : MonoBehaviour
     [SerializeField] private GameObject congratsMessage;
     [SerializeField] private GameObject finishButton;
 
+    [SerializeField] private CameraRotation cameraRot;
+
     private void Awake()
     {
         firstMessage.gameObject.SetActive(true);
@@ -31,16 +34,21 @@ public class Education : MonoBehaviour
 
     private void ChoosePlayer()
     {
+        cameraRot.DeleteEducation();
         firstMessage.SetActive(false);
         choosePlayerMessage.SetActive(true);
+        
     }
     private void ChoosePath()
     {
+        cameraRot.DeleteEducation();
+        firstMessage.SetActive(false);
         choosePlayerMessage.SetActive(false);
         choosePathMessage.SetActive(true);
     }
     private void MoveMessage()
-    {
+    { 
+        onPathTargeted -= MoveMessage;
         choosePathMessage.SetActive(false);
         moveMessage.SetActive(true);
     }

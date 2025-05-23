@@ -3685,6 +3685,7 @@ MonoBehaviour:
   attackMessage: {fileID: 2113917297}
   congratsMessage: {fileID: 443242055}
   finishButton: {fileID: 1641711027}
+  cameraRot: {fileID: 178294185}
 --- !u!4 &1815995422
 Transform:
   m_ObjectHideFlags: 0
