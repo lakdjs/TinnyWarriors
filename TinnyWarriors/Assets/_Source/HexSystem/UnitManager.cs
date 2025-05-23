@@ -16,6 +16,9 @@ namespace HexSystem
         
         [SerializeField]
         private MovementSystem movementSystem;
+
+        [SerializeField] private Material origMaterial;
+        [SerializeField] private Material enemyMaterial;
         
             //TODO переписать полностью! постройку в другой класс!
         public bool PlayerSelected { get; private set; }
@@ -25,6 +28,8 @@ namespace HexSystem
         [SerializeField] private List<UnitMovement> units;
         [SerializeField] private EnemyMovement king;
         [SerializeField] private UnitMovement unitKing;
+        [SerializeField] private Unit enemyKingUnit;
+        [SerializeField] private Unit kingUnit;
         public bool PlayersTurn { get; private set; } = true;
         public bool EnemiesTurn { get; private set; } = false;
 
@@ -55,6 +60,8 @@ namespace HexSystem
         private bool _isPlayerSelectedFirstTime = false;
         private bool _isTerraianSelectedFirstTime = false;
         private bool _isPlayerMovedToEnemyFirstTime = false;
+
+        private List<Vector3Int> enemiesToGlow = new List<Vector3Int>();
 
         private void Awake()
         {
@@ -224,14 +231,27 @@ namespace HexSystem
                     if (_isPlayerMovedToEnemyFirstTime == false)
                     {
                         _education.onMovedToEnemy.Invoke();
-                        Debug.Log("Moved to enemy first time");
+                        //Debug.Log("Moved to enemy first time");
                         _isPlayerMovedToEnemyFirstTime = true;
                     }
                 }
                 ClearOldSelection();
             }
         }
-
+        private void GlowEnemies(List<Vector3Int> glowers)
+        {
+            foreach(Vector3Int enemyToGlow in glowers)
+            {
+                hexGrid.GetTileAt(enemyToGlow).GetComponentInChildren<Renderer>().material = enemyMaterial;
+            }
+        }
+        private void UnGlowEnemies(List<Vector3Int> unGlowers)
+        {
+            foreach (Vector3Int enemyToGlow in unGlowers)
+            {
+                hexGrid.GetTileAt(enemyToGlow).GetComponentInChildren<Renderer>().material = origMaterial;
+            }
+        }
         private bool HandleSelectedHexIsUnitHex(Vector3Int hexPosition)
         {
             if (hexPosition == hexGrid.GetClosestHex(selectedUnit.transform.position))
@@ -317,6 +337,10 @@ namespace HexSystem
             //Vector3Int lastUnitCoords = new Vector3Int(_lastHex.HexCoords.x, 0, _lastHex.HexCoords.z);
             //hexGrid.GetTileAt(lastUnitCoords).SetType(HexType.Default);
             int enemyQuantity = enemies.Count;
+            if(enemyQuantity == 1)
+            {
+                enemyKingUnit.Wining();
+            }
             int curEnemy = 0;
             Random random = new();
             while (true)
@@ -385,13 +409,13 @@ namespace HexSystem
             { 
                 Vector3Int lastUnitCoords = new Vector3Int(unit._hexCoordinates.GetHexCoords().x, 0,
                     unit._hexCoordinates.GetHexCoords().z);
-               Debug.Log(lastUnitCoords);
+               //Debug.Log(lastUnitCoords);
             }
             if (enemies[enemyID].Type == UnitType.melee)
             {
                 foreach (Vector3Int direction in hexGrid.GetNeighboursFor(lastEnemyPos) )
                 {
-                    Debug.Log(direction);
+                    //Debug.Log(direction);
                     foreach (UnitMovement unit in units)
                     { 
                         Vector3Int lastUnitCoords = new Vector3Int(unit._hexCoordinates.GetHexCoords().x, 0,
@@ -419,7 +443,7 @@ namespace HexSystem
             {
                 foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(lastEnemyPos))
                 {
-                    Debug.Log(direction);
+                    //Debug.Log(direction);
                     foreach (UnitMovement unit in units)
                     { 
                         Vector3Int lastUnitCoords = new Vector3Int(unit._hexCoordinates.GetHexCoords().x, 0,
@@ -472,6 +496,55 @@ namespace HexSystem
 
         private void BattleTurn(UnitMovement selectedUnit)
         {
+            if (_unit.GetUnitType() == UnitType.melee)
+            {
+                int kolvo = 0;
+                
+                foreach (Vector3Int direction in hexGrid.GetNeighboursFor(_lastHex.HexCoords))
+                {
+                    if (hexGrid.GetTileAt(direction).IsEnemy())
+                    {
+                        enemiesToGlow.Add(direction);
+                        kolvo++;
+                    }
+                }
+                if(kolvo == 0)
+                {
+                    PlayersTurn = false;
+                    _isBattling = false;
+                    EnemyTurn();
+                    return;
+                }
+                else
+                {
+                    GlowEnemies(enemiesToGlow);
+                }
+            }
+            if (_unit.GetUnitType() == UnitType.distant)
+            {
+                int kolvo = 0;
+                
+                foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(_lastHex.HexCoords))
+                {
+                    if (hexGrid.GetTileAt(direction).IsEnemy())
+                    {
+                        enemiesToGlow.Add(direction);
+                        kolvo++;
+                    }
+                    
+                }
+                if (kolvo == 0)
+                {
+                    PlayersTurn = false;
+                    _isBattling = false;
+                    EnemyTurn();
+                    return;
+                }
+                else
+                {
+                    GlowEnemies(enemiesToGlow);
+                }
+            }
             skipAttack.interactable = true;
             skipAttack.onClick.AddListener(EnemyTurn);
             _isBattling = true;
@@ -518,6 +591,8 @@ namespace HexSystem
                     PlayersTurn = false;
                     _isBattling = false;
                     _unit = null;
+                    UnGlowEnemies(enemiesToGlow);
+                    enemiesToGlow.Clear();
                     EnemyTurn();
                 }
             }
@@ -536,6 +611,8 @@ namespace HexSystem
                     PlayersTurn = false;
                     _isBattling = false;
                     _unit = null;
+                    UnGlowEnemies(enemiesToGlow);
+                    enemiesToGlow.Clear();
                     EnemyTurn();
                 }
             }

@@ -12,6 +12,7 @@ namespace HexSystem
         Dictionary<Color, Material> cachedGlowMaterials = new Dictionary<Color, Material>();
 
         public Material glowMaterial;
+        public Material glowEnemyMaterial;
 
         private bool isGlowing = false;
 

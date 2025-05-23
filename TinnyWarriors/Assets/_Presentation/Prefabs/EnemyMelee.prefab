@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 1459928456907797585}
   - component: {fileID: 6672585773122808934}
   - component: {fileID: 7324452752987833761}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyMelee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
-  movementPoints: 20
+  movementPoints: 1000
   movementDuration: 0.4
   rotationDuration: 0.3
   hexGrid: {fileID: 0}
@@ -508,22 +508,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1398f94c741002641bf2515914d08eeb,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1398f94c741002641bf2515914d08eeb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1398f94c741002641bf2515914d08eeb,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1398f94c741002641bf2515914d08eeb,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.7071068
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1398f94c741002641bf2515914d08eeb,
         type: 3}
@@ -538,7 +538,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1398f94c741002641bf2515914d08eeb,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -180
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1398f94c741002641bf2515914d08eeb,
         type: 3}

@@ -73,14 +73,12 @@ namespace UnitSystem
                 }
                 if (youWon != null && unitManager != null)
                 {
-                    youWon.SetActive(true);
-                    unitManager.enabled = false;    
+                    Wining();
                 }
 
                 if (youLost != null && unitManager != null)
                 {
-                    youLost.SetActive(true);
-                    unitManager.enabled = false;   
+                    Losing();
                 }
                 hexCoordinates = this.gameObject.GetComponent<HexCoordinates>();
                 Debug.Log(hexCoordinates);
@@ -92,7 +90,16 @@ namespace UnitSystem
                 
             }
         }
-
+        public void Wining()
+        {
+            youWon.SetActive(true);
+            unitManager.enabled = false;
+        }
+        public void Losing()
+        {
+            youLost.SetActive(true);
+            unitManager.enabled = false;
+        }
         public virtual Vector3Int Attack(Hex hexToAttack)
         {
             return new Vector3Int();

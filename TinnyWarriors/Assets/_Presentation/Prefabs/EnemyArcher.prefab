@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 1819682634767763535}
   - component: {fileID: 4073324333157084315}
   - component: {fileID: 6010669167081603088}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyArcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,8 +352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246bb3d8a51248beaedc1ac8b143a6ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 0
-  movementPoints: 20
+  <Type>k__BackingField: 1
+  movementPoints: 1000
   movementDuration: 0.4
   rotationDuration: 0.3
   hexGrid: {fileID: 0}
@@ -508,22 +508,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 59994c23718ac1349b607b14cb9db34a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 59994c23718ac1349b607b14cb9db34a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 59994c23718ac1349b607b14cb9db34a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 59994c23718ac1349b607b14cb9db34a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 59994c23718ac1349b607b14cb9db34a,
         type: 3}
@@ -538,7 +538,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 59994c23718ac1349b607b14cb9db34a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 59994c23718ac1349b607b14cb9db34a,
         type: 3}

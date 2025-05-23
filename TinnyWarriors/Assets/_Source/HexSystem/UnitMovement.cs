@@ -66,6 +66,9 @@ namespace HexSystem
             Quaternion startRotation = transform.rotation;
             endPosition.y = transform.position.y;
             Vector3 direction = endPosition - transform.position;
+            Debug.Log("dir" + direction);
+            Debug.Log("start rotation" + startRotation);
+            
             Quaternion endRotation = Quaternion.LookRotation(direction, Vector3.up);
 
             if (Mathf.Approximately(Mathf.Abs(Quaternion.Dot(startRotation, endRotation)), 1.0f) == false)

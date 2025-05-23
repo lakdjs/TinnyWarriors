@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4166368016286818742}
   - component: {fileID: 5943811489609865775}
   - component: {fileID: 6106497599829145222}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyKing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 246bb3d8a51248beaedc1ac8b143a6ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 2
   movementPoints: 10
   movementDuration: 0.4
   rotationDuration: 0.3
@@ -607,12 +607,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 273bda20d3baadf439fbf8112f1bf8fd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 273bda20d3baadf439fbf8112f1bf8fd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 273bda20d3baadf439fbf8112f1bf8fd,
         type: 3}
@@ -627,7 +627,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 273bda20d3baadf439fbf8112f1bf8fd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 273bda20d3baadf439fbf8112f1bf8fd,
         type: 3}
