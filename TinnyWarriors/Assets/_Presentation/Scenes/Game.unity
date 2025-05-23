@@ -952,6 +952,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7406448271055221868, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
+        type: 3}
+      propertyPath: hexType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8120951223650287649, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
         type: 3}
       propertyPath: m_Name
@@ -1107,6 +1112,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406448271055221868, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
+        type: 3}
+      propertyPath: hexType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8120951223650287649, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
         type: 3}
@@ -1447,11 +1457,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1156732021}
-  offset: {x: 0, y: -3, z: 20}
+  offset: {x: 0, y: -3, z: -12}
   sensitivity: 3
   limit: 25
   zoom: 0.25
-  zoomMax: 12
+  zoomMax: 18
   zoomMin: 3
   X: 0
   Y: 0
@@ -3732,6 +3742,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7406448271055221868, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
+        type: 3}
+      propertyPath: hexType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8120951223650287649, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
         type: 3}
       propertyPath: m_Name
@@ -4049,6 +4064,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406448271055221868, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
+        type: 3}
+      propertyPath: hexType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8120951223650287649, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
         type: 3}
@@ -4944,6 +4964,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406448271055221868, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
+        type: 3}
+      propertyPath: hexType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8120951223650287649, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
         type: 3}
@@ -6470,6 +6495,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7406448271055221868, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
+        type: 3}
+      propertyPath: hexType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8120951223650287649, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
         type: 3}
       propertyPath: m_Name
@@ -6889,6 +6919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406448271055221868, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
+        type: 3}
+      propertyPath: hexType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8120951223650287649, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
         type: 3}
@@ -7778,6 +7813,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406448271055221868, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
+        type: 3}
+      propertyPath: hexType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8120951223650287649, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
         type: 3}
@@ -8900,6 +8940,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406448271055221868, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
+        type: 3}
+      propertyPath: hexType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8120951223650287649, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
         type: 3}

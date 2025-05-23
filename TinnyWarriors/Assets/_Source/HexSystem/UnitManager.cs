@@ -336,7 +336,7 @@ namespace HexSystem
         {
             _enemyCoords = enemies[enemyId].GetComponent<HexCoordinates>();
             _enemyCoords.SetCoords();
-            hexGrid.GetTileAt(new Vector3Int(_enemyCoords.GetHexCoords().x,0,_enemyCoords.GetHexCoords().z)).SetType(HexType.Default);
+            
             Vector3Int enemyCoords = new Vector3Int(enemies[enemyId].GetCoords().x, 0, enemies[enemyId].GetCoords().z);
             List<Vector3Int> currentPath = new List<Vector3Int>();
             List<Vector3Int> pathToKing = new List<Vector3Int>();
@@ -351,16 +351,21 @@ namespace HexSystem
                     pathToKing.Add(currentPath[i]);
                 }
             }
-            else
+            else if(currentPath.Count == 1)
             {
-                for (int i = 0; i < currentPath.Count; i++)
+                
+                EnemyAttack(enemyId,enemyCoords );
+                return;
+            }
+            
+            else if(currentPath.Count == 2)
+            {
+                for (int i = 0; i < 1; i++)
                 {
                     pathToKing.Add(currentPath[i]);
                 }
-
-                //EnemyAttack(enemyId,enemyCoords );
-                //return;
             }
+            hexGrid.GetTileAt(new Vector3Int(_enemyCoords.GetHexCoords().x, 0, _enemyCoords.GetHexCoords().z)).SetType(HexType.Default);
             //king.MoveThroughPath(new List<Vector3>{direction}.Select(pos => hexGrid.GetTileAt(new Vector3Int(direction.x,0,direction.z)).transform.position).ToList() );
             enemies[enemyId].MoveThroughPath(pathToKing.Select(pos =>
                 hexGrid.GetTileAt(new Vector3Int(pathToKing[pathToKing.Count - 1].x, 0,

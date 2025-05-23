@@ -24,7 +24,7 @@ namespace CameraSystem
         {
             limit = Mathf.Abs(limit);
             if(limit > 90) limit = 90;
-            offset = new Vector3(offset.x, offset.y, -Mathf.Abs(zoomMax)/2);
+            offset = new Vector3(offset.x, offset.y, offset.z);
             transform.position = target.position + offset;
         }
         public void Construct(Education education)

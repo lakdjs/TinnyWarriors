@@ -21,6 +21,7 @@ namespace HexSystem
                 HexType.Default => 10,
                 HexType.Road => 5,
                 HexType.Unit => 1000,
+                HexType.Enemy => 1000,
                 _ => throw new Exception($"Hex of type {hexType} not supported")
             };
         
