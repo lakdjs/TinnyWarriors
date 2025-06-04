@@ -36,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 5557553672471258037}
   - {fileID: 1437087523387712462}
+  - {fileID: 7952243340028183660}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &844755351620695313
@@ -108,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glowMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  glowEnemyMaterial: {fileID: 0}
 --- !u!114 &1706262919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +126,7 @@ MonoBehaviour:
   movementDuration: 0.4
   rotationDuration: 0.3
   hexGrid: {fileID: 0}
+  characteristic: {fileID: 6960007237467845385}
 --- !u!1 &394494008291594638
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +319,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f73d8f8648a68642ac7cb7db0a6c6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6960007237467845385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7952243340028183660}
+  m_Layer: 0
+  m_Name: Chara
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7952243340028183660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960007237467845385}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.285456, y: 11.500346, z: 42.897747}
+  m_LocalScale: {x: 3.3333333, y: 3.3333333, z: 3.3333333}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3854474821355971624}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7439013494246131188
 GameObject:
   m_ObjectHideFlags: 0

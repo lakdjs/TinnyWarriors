@@ -15,6 +15,8 @@ namespace HexSystem
         [SerializeField] private float movementDuration = 1, rotationDuration = 0.3f;
 
         [SerializeField] private HexGrid hexGrid;
+
+        [SerializeField] private GameObject characteristic;
         private UnitManager _unitManager;
         public HexCoordinates _hexCoordinates { get; private set; }
 
@@ -30,10 +32,18 @@ namespace HexSystem
             
         }
 
-        
+        public void ShowCharacteristic()
+        {
+            characteristic.SetActive(true);
+        }
+        public void DeleteCharacteristic()
+        {
+            characteristic.SetActive(false);
+        }
 
         public void SetUp()
         {
+           // characteristic.SetActive(false);
             _unitManager = FindObjectOfType<UnitManager>();
             hexGrid = FindObjectOfType<HexGrid>();
             _hexCoordinates = GetComponent<HexCoordinates>();
@@ -46,11 +56,13 @@ namespace HexSystem
         }
         public void Deselect()
         {
+            characteristic.SetActive(false);
            // _glowHighlight.ToggleGlow(false);
         }
 
         public void Select()
         {
+            characteristic.SetActive(true);
            // _glowHighlight.ToggleGlow();
         }
 
@@ -66,8 +78,8 @@ namespace HexSystem
             Quaternion startRotation = transform.rotation;
             endPosition.y = transform.position.y;
             Vector3 direction = endPosition - transform.position;
-            Debug.Log("dir" + direction);
-            Debug.Log("start rotation" + startRotation);
+            //Debug.Log("dir" + direction);
+            //Debug.Log("start rotation" + startRotation);
             
             Quaternion endRotation = Quaternion.LookRotation(direction, Vector3.up);
 

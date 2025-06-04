@@ -129,6 +129,7 @@ namespace HexSystem
             }
             PlayerSelected = true;
             UnitMovement unitReference = unit.GetComponent<UnitMovement>();
+            
             //Unit unitInfo = unit.GetComponent<Unit>();
 
             if (CheckIfTheSameUnitSelected(unitReference))
@@ -194,6 +195,7 @@ namespace HexSystem
             {
                 HexCoordinates coords = unit.GetComponent<HexCoordinates>();
                 coords.SetCoords();
+                //unit.DeleteCharacteristic();
             }
             foreach (EnemyMovement enemy in enemies)
             {
@@ -534,6 +536,15 @@ namespace HexSystem
                     }
                     
                 }
+                foreach (Vector3Int direction in hexGrid.GetNeighboursFor(_lastHex.HexCoords))
+                {
+                    if (hexGrid.GetTileAt(direction).IsEnemy())
+                    {
+                        enemiesToGlow.Add(direction);
+                        kolvo++;
+                    }
+
+                }
                 if (kolvo == 0)
                 {
                     PlayersTurn = false;
@@ -582,8 +593,44 @@ namespace HexSystem
 
         private void DistantAttack(Hex hexToAttack)
         {
-            foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(_lastHex.HexCoords) )
+            List<Vector3Int> neighbours = new List<Vector3Int>();
+            
+            foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(_lastHex.HexCoords))
             {
+                neighbours.Add(direction);
+                /*if (hexGrid.GetTileAt(direction).IsEnemy() && hexGrid.GetTileAt(direction) == hexToAttack)
+                {
+                    _enemy.TakeDamage(_unit.GetUnitDamage());
+                    Debug.Log($"Удар!");
+                    // Debug.Log(direction);
+                    PlayersTurn = false;
+                    _isBattling = false;
+                    _unit = null;
+                    UnGlowEnemies(enemiesToGlow);
+                    enemiesToGlow.Clear();
+                    EnemyTurn();
+                }*/
+            }
+            foreach (Vector3Int direction in hexGrid.GetNeighboursFor(_lastHex.HexCoords))
+            {
+                neighbours.Add(direction);
+                //Debug.Log(direction);
+                /*if (hexGrid.GetTileAt(direction).IsEnemy() && hexGrid.GetTileAt(direction) == hexToAttack)
+                {
+                    _enemy.TakeDamage(_unit.GetUnitDamage());
+                    Debug.Log($"Удар!");
+                    // Debug.Log(direction);
+                    PlayersTurn = false;
+                    _isBattling = false;
+                    _unit = null;
+                    UnGlowEnemies(enemiesToGlow);
+                    enemiesToGlow.Clear();
+                    EnemyTurn();
+                }*/
+            }
+            foreach (Vector3Int direction in neighbours)
+            {
+                Debug.Log(direction);
                 if (hexGrid.GetTileAt(direction).IsEnemy() && hexGrid.GetTileAt(direction) == hexToAttack)
                 {
                     _enemy.TakeDamage(_unit.GetUnitDamage());
