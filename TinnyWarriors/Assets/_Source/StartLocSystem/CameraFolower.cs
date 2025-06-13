@@ -15,5 +15,6 @@ public class CameraFolower : MonoBehaviour
     {
         cameraTarget = new Vector3(target.position.x, transform.position.y, target.position.z);
         transform.position = Vector3.Lerp(transform.position, cameraTarget, Time.deltaTime * 8);
+       // transform.eulerAngles = new Vector3(25, 0, 0);
     }
 }
