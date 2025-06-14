@@ -2249,8 +2249,8 @@ MonoBehaviour:
   hexGrid: {fileID: 1468392590}
   skipAttack: {fileID: 1787402212}
   movementSystem: {fileID: 1781640561}
-  origMaterial: {fileID: 0}
-  enemyMaterial: {fileID: 0}
+  origMaterial: {fileID: 2100000, guid: 188a3c73e235fc74dab314b74052297d, type: 2}
+  enemyMaterial: {fileID: 2100000, guid: 83c05e20663fbfa488a2055ee47157df, type: 2}
   enemies:
   - {fileID: 2123386074}
   units:
