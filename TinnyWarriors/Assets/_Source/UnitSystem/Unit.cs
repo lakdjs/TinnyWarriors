@@ -26,6 +26,7 @@ namespace UnitSystem
         [SerializeField] protected int CurrHp;
         [SerializeField] protected HexCoordinates hexCoordinates;
         [SerializeField] private UnitManager unitManager;
+        [SerializeField] private PlayerUI playerUI;
  
         private HexCoordinates _hexCoordinates;
 
@@ -60,7 +61,8 @@ namespace UnitSystem
         public void TakeDamage(int dmg)
         {
             CurrHp -= dmg;
-            gettingDamageText.text = dmg.ToString(); 
+            gettingDamageText.text = dmg.ToString();
+            playerUI.ShowDamage();
             _healthBar.UpdateBar((float)CurrHp/(float)MaxHp);
            
             if (CurrHp <= 0)
