@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+
 namespace UnitSystem
 {
     public enum UnitType
@@ -17,6 +18,7 @@ namespace UnitSystem
         [SerializeField] private GameObject youWon;
         [SerializeField] private GameObject youLost;
         [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private TextMeshProUGUI gettingDamageText;
         [SerializeField] protected UnitType CurrUnitType;
         [SerializeField] protected HexGrid hexGrid;
         [SerializeField] protected int Damage;
@@ -58,6 +60,7 @@ namespace UnitSystem
         public void TakeDamage(int dmg)
         {
             CurrHp -= dmg;
+            gettingDamageText.text = dmg.ToString(); 
             _healthBar.UpdateBar((float)CurrHp/(float)MaxHp);
            
             if (CurrHp <= 0)
