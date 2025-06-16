@@ -33,7 +33,7 @@ namespace HexSystem
 //            Debug.Log(_hexCoordinates);
             
         }
-
+        
         public void SetUp()
         {
             _unitManager = FindObjectOfType<UnitManager>();

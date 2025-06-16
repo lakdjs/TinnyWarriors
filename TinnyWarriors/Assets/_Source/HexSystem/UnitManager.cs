@@ -165,6 +165,14 @@ namespace HexSystem
         }
         private void SelectUnit()
         {
+            if(enemies.Count <= 0)
+            {
+                winingAction.Invoke();
+            }
+            if(units.Count <= 0)
+            {
+                losingAction.Invoke();
+            }
             foreach (UnitMovement unit in units)
             {
                 HexCoordinates coordss = unit.GetComponent<HexCoordinates>();
@@ -185,6 +193,14 @@ namespace HexSystem
         }
         private void SelectEnemy()
         {
+            if (enemies.Count <= 0)
+            {
+                winingAction.Invoke();
+            }
+            if (units.Count <= 0)
+            {
+                losingAction.Invoke();
+            }
             StartCoroutine(EnemyTurnCoroutine(1));
             //StartCoroutine(EnemyTurnCoroutine());
             foreach (UnitMovement unit in units)
@@ -365,7 +381,7 @@ namespace HexSystem
             int enemyQuantity = enemies.Count;
             if(enemyQuantity <= 0)
             {
-                winingAction.Invoke();
+               
                 
                 return;
             }
