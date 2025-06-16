@@ -56,14 +56,14 @@ namespace HexSystem
         }
         public void Deselect()
         {
-            Debug.Log("Deselect");
+            
             characteristic.SetActive(false);
            // _glowHighlight.ToggleGlow(false);
         }
 
         public void Select()
         {
-            Debug.Log("select" + " " + gameObject + " " + characteristic);
+           
             characteristic.SetActive(true);
            // _glowHighlight.ToggleGlow();
         }

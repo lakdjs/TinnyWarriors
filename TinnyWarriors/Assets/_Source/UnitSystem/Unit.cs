@@ -51,6 +51,10 @@ namespace UnitSystem
         {
             _education = education;
         }
+        public int GetUnitHP()
+        {
+            return CurrHp;
+        }
         public int GetUnitDamage()
         {
             return Damage;

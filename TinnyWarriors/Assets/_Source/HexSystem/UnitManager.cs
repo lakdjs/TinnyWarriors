@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnemySystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +75,7 @@ namespace HexSystem
         {
 
             SetUp();
-            //skipAttack.interactable = false;
+            
         }
         private void SetUp()
         {
@@ -84,6 +85,7 @@ namespace HexSystem
             indexOfEnemy = 0;
             StartCoroutine(LoadingScene());
             SelectUnit();
+            //Debug.Log(enemies.Count);
         }
         IEnumerator LoadingScene()
         {
@@ -97,10 +99,9 @@ namespace HexSystem
         {
             if (PlayersTurn == true)
             {
-                //if (_isBattling)
-                //{
+                
                     EnemyMovement enemyReference = enemy.GetComponent<EnemyMovement>();
-                   //new Vector3Int(_selectedUnitCoords.GetHexCoords().x,0,_selectedUnitCoords.GetHexCoords().z))
+                   
                    Vector3Int enemyCoords = enemyReference.gameObject.GetComponent<HexCoordinates>().GetHexCoords();
                    _enemy = enemy.GetComponent<Unit>();
                     Hex selectedHexToAttack =
@@ -109,7 +110,7 @@ namespace HexSystem
                     {
                         Battling(selectedHexToAttack);
                     }
-                //}
+               
             }
         }
 
@@ -124,40 +125,7 @@ namespace HexSystem
         }
         public void HandleUnitSelected(GameObject unit)
         {
-            /*foreach (EnemyMovement enemy in enemies)
-            {
-                HexCoordinates coords = enemy.GetComponent<HexCoordinates>();
-                coords.SetCoords();
-            }
-            foreach (UnitMovement uni in units)
-            {
-                HexCoordinates coords = uni.GetComponent<HexCoordinates>();
-                coords.SetCoords();
-            }
-            if (PlayersTurn == false)
-            {
-                return;
-            }
-            if (_education != null)
-            {
-                if (_isPlayerSelectedFirstTime == false)
-                {
-                    _education.onPlayerTargeted.Invoke();
-                    Debug.Log("Player Selected first time");
-                    _isPlayerSelectedFirstTime = true;
-                }
-            }
-            PlayerSelected = true;
-            UnitMovement unitReference = unit.GetComponent<UnitMovement>();
             
-            //Unit unitInfo = unit.GetComponent<Unit>();
-
-            if (CheckIfTheSameUnitSelected(unitReference))
-            {
-                return;
-            }
-                
-            PrepareUnitForMovement(unitReference);*/
             
         }
 
@@ -189,16 +157,24 @@ namespace HexSystem
             }
             Hex selectedHex = hexGO.GetComponent<Hex>();
 
-            //if (HandleHexOutOfRange(selectedHex.HexCoords) || HandleSelectedHexIsUnitHex(selectedHex.HexCoords))
-                //return;
+           
 
             HandleTargetHexSelected(selectedHex);
 
         }
         private void SelectUnit()
         {
-            //ClearOldSelection();
-            //Debug.Log(indexOfUnit);
+            foreach (UnitMovement unit in units)
+            {
+                HexCoordinates coordss = unit.GetComponent<HexCoordinates>();
+                coordss.SetCoords();
+            }
+            foreach (EnemyMovement enemy in enemies)
+            {
+                HexCoordinates coordss = enemy.GetComponent<HexCoordinates>();
+                coordss.SetCoords();
+            }
+
             PlayersTurn = true;
             selectedUnit = units[indexOfUnit];
             HexCoordinates coords = selectedUnit.GetComponent<HexCoordinates>();
@@ -208,15 +184,26 @@ namespace HexSystem
         }
         private void SelectEnemy()
         {
+            StartCoroutine(EnemyTurnCoroutine(1));
+            //StartCoroutine(EnemyTurnCoroutine());
+            foreach (UnitMovement unit in units)
+            {
+                HexCoordinates coords = unit.GetComponent<HexCoordinates>();
+                coords.SetCoords();
+            }
+            foreach (EnemyMovement enemy in enemies)
+            {
+                HexCoordinates coords = enemy.GetComponent<HexCoordinates>();
+                coords.SetCoords();
+            }
+            
+            PlayersTurn = false;
             MoveOtherEnemy(indexOfEnemy);
-            indexOfEnemy++;
+            
         }
         private void PrepareUnitForMovement(UnitMovement unitReference)
         {
-            /*if (this.selectedUnit != null)
-            {
-                ClearOldSelection();
-            }*/
+           
             selectedUnit = unitReference;
             _unit = unitReference.gameObject.GetComponent<Unit>();
             _selectedUnitCoords = unitReference.gameObject.GetComponent<HexCoordinates>();
@@ -230,7 +217,7 @@ namespace HexSystem
             {
                 HexCoordinates coords = unit.GetComponent<HexCoordinates>();
                 coords.SetCoords();
-                //unit.DeleteCharacteristic();
+               
             }
             foreach (EnemyMovement enemy in enemies)
             {
@@ -243,7 +230,7 @@ namespace HexSystem
             this.selectedUnit.Deselect();
             movementSystem.HideRange(this.hexGrid);
             this.selectedUnit = null;
-            //_unit = null;
+           
 
         }
 
@@ -260,23 +247,23 @@ namespace HexSystem
                 _selectedUnitCoords.SetCoords();
                 hexGrid.GetTileAt(new Vector3Int(_selectedUnitCoords.GetHexCoords().x,0,_selectedUnitCoords.GetHexCoords().z)).SetType(HexType.Default);
                 movementSystem.MoveUnit(selectedUnit, this.hexGrid);
-                //PlayersTurn = false;
+                
                 _previouslySelectedHex.SetType(HexType.Unit);
-                //
+                
                 BattleTurn(selectedHex);
-                //Battling(selectedHex);
-                //selectedUnit.MovementFinished += ResetTurn;
+                
+                //ClearOldSelection();
                 _unitToAttack = selectedUnit;
                 if (_education != null)
                 {
                     if (_isPlayerMovedToEnemyFirstTime == false)
                     {
                         _education.onMovedToEnemy.Invoke();
-                        //Debug.Log("Moved to enemy first time");
+                       
                         _isPlayerMovedToEnemyFirstTime = true;
                     }
                 }
-                //ClearOldSelection();
+               
             }
         }
         private void GlowEnemies(List<Vector3Int> glowers)
@@ -341,9 +328,7 @@ namespace HexSystem
             hexGrid.GetTileAt(lastUnitCoords).SetType(HexType.Unit);
             
             PrepareOtherEnemyTurn();
-            //move melee or distant
             
-            //enemies[0].MoveThroughPath();
         }
 
         private void MoveEnemyKing()
@@ -353,12 +338,12 @@ namespace HexSystem
             hexGrid.GetTileAt(new Vector3Int(_enemyCoords.GetHexCoords().x,0,_enemyCoords.GetHexCoords().z)).SetType(HexType.Default);
             Vector3Int lastUnitCoords = new Vector3Int(_lastHex.HexCoords.x, 0, _lastHex.HexCoords.z);
             Vector3Int kingCoords = new Vector3Int(king.GetCoords().x, 0, king.GetCoords().z);
-            //_enemyCoords = king.GetComponent<HexCoordinates>();
+           
             foreach (Vector3Int direction in hexGrid.GetNeighboursFor(kingCoords))
             {
                 if(direction != lastUnitCoords)
                 {
-                    //_previousEnemyHex.SetType(HexType.Default);
+                    
                     _enemyCoords.SetCoords();
                     hexGrid.GetTileAt(new Vector3Int(_enemyCoords.GetHexCoords().x,0,_enemyCoords.GetHexCoords().z)).SetType(HexType.Default);
                    
@@ -375,13 +360,12 @@ namespace HexSystem
 
         private void PrepareOtherEnemyTurn()
         {
-            //Vector3Int lastUnitCoords = new Vector3Int(_lastHex.HexCoords.x, 0, _lastHex.HexCoords.z);
-            //hexGrid.GetTileAt(lastUnitCoords).SetType(HexType.Default);
+           
             int enemyQuantity = enemies.Count;
             if(enemyQuantity <= 0)
             {
                 winingAction.Invoke();
-                //enemyKingUnit.Wining();
+                
                 return;
             }
             int curEnemy = 0;
@@ -401,14 +385,32 @@ namespace HexSystem
 
         private void MoveOtherEnemy(int enemyId)
         {
+            Debug.Log(indexOfEnemy + " " + "1");
             _enemyCoords = enemies[enemyId].GetComponent<HexCoordinates>();
             _enemyCoords.SetCoords();
             
             Vector3Int enemyCoords = new Vector3Int(enemies[enemyId].GetCoords().x, 0, enemies[enemyId].GetCoords().z);
             List<Vector3Int> currentPath = new List<Vector3Int>();
             List<Vector3Int> pathToKing = new List<Vector3Int>();
-            Vector3Int unitKingPos = unitKing._hexCoordinates.GetHexCoords();
-           // movementSystem.ShowPath(new Vector3Int(unitKingPos.x, 0, unitKingPos.z),hexGrid);
+
+            Unit weakestUnit = null;
+            int indexOfWeakestUnit = 0;
+            int currIndex = 0;
+            int lowestHp = 100;
+            foreach(UnitMovement unit in units)
+            {
+                Unit unitToCheck = unit.GetComponent<Unit>();
+                if(unitToCheck.GetUnitHP() <= lowestHp)
+                {
+                    weakestUnit = unitToCheck;
+                    lowestHp = unitToCheck.GetUnitHP();
+                    indexOfWeakestUnit = currIndex;
+                }
+                currIndex++;
+            }
+            UnitMovement weakestUnitToMove = weakestUnit.GetComponent<UnitMovement>();
+            Vector3Int unitKingPos = weakestUnitToMove._hexCoordinates.GetHexCoords();
+           
             _bfs = GraphSearch.BFSGetRange(hexGrid, enemyCoords, 10000);
             currentPath = _bfs.GetPathTo(new Vector3Int(unitKingPos.x, 0, unitKingPos.z));
             if (currentPath.Count > 2)
@@ -421,7 +423,7 @@ namespace HexSystem
             else if(currentPath.Count == 1)
             {
                 
-                EnemyAttack(enemyId,enemyCoords );
+                EnemyAttackTurn(enemyId,enemyCoords);
                 return;
             }
             
@@ -432,18 +434,19 @@ namespace HexSystem
                     pathToKing.Add(currentPath[i]);
                 }
             }
+            Debug.Log(indexOfEnemy + " " + "2");
             hexGrid.GetTileAt(new Vector3Int(_enemyCoords.GetHexCoords().x, 0, _enemyCoords.GetHexCoords().z)).SetType(HexType.Default);
-            //king.MoveThroughPath(new List<Vector3>{direction}.Select(pos => hexGrid.GetTileAt(new Vector3Int(direction.x,0,direction.z)).transform.position).ToList() );
+            
             enemies[enemyId].MoveThroughPath(pathToKing.Select(pos =>
                 hexGrid.GetTileAt(new Vector3Int(pathToKing[pathToKing.Count - 1].x, 0,
                     pathToKing[pathToKing.Count - 1].z)).transform.position).ToList());
             hexGrid.GetTileAt(pathToKing[pathToKing.Count - 1]).SetType(HexType.Enemy);
             
-            EnemyAttack(enemyId,pathToKing[pathToKing.Count - 1]);
-           
+            EnemyAttackTurn(enemyId,pathToKing[pathToKing.Count - 1]);
+            Debug.Log(indexOfEnemy + " " + "3");
         }
 
-        private void EnemyAttack(int enemyID, Vector3Int lastEnemyPos)
+        private void EnemyAttackTurn(int enemyID, Vector3Int lastEnemyPos)
         {
             Vector3Int enemyCoords = new Vector3Int(enemies[enemyID].GetCoords().x, 0, enemies[enemyID].GetCoords().z);
             _bfs = GraphSearch.BFSGetRange(hexGrid, lastEnemyPos, 30);
@@ -452,17 +455,18 @@ namespace HexSystem
             { 
                 Vector3Int lastUnitCoords = new Vector3Int(unit._hexCoordinates.GetHexCoords().x, 0,
                     unit._hexCoordinates.GetHexCoords().z);
-               //Debug.Log(lastUnitCoords);
+               
             }
             if (enemies[enemyID].Type == UnitType.melee)
             {
                 foreach (Vector3Int direction in hexGrid.GetNeighboursFor(lastEnemyPos) )
                 {
-                    //Debug.Log(direction);
+                   
                     foreach (UnitMovement unit in units)
                     { 
                         Vector3Int lastUnitCoords = new Vector3Int(unit._hexCoordinates.GetHexCoords().x, 0,
                             unit._hexCoordinates.GetHexCoords().z);
+
                         if(lastUnitCoords.x == direction.x && lastUnitCoords.z == direction.z)
                         {
                             foreach (UnitMovement unitToAttack in units)
@@ -471,14 +475,7 @@ namespace HexSystem
                                     unitToAttack._hexCoordinates.GetHexCoords().z == lastUnitCoords.z)
                                 {
                                     unitToAttack.GetComponent<Unit>().TakeDamage(enemies[enemyID].GetComponent<Unit>().GetUnitDamage());
-                                    if(indexOfEnemy >= enemies.Count)
-                                    {
-                                        PlayersTurn = true;
-                                        return;
-                                    }
-                                    SelectEnemy();
                                     
-                                    return;
                                 }
                             }
 
@@ -486,8 +483,12 @@ namespace HexSystem
                         }
                     }
                     
-                } 
+                }
+               
+
+                
             }
+            Debug.Log(indexOfEnemy + " " + "4");
             if (enemies[enemyID].Type == UnitType.distant)
             {
                 foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(lastEnemyPos))
@@ -505,52 +506,41 @@ namespace HexSystem
                                     unitToAttack._hexCoordinates.GetHexCoords().z == lastUnitCoords.z)
                                 {
                                     unitToAttack.GetComponent<Unit>().TakeDamage(enemies[enemyID].GetComponent<Unit>().GetUnitDamage());
-                                    if (indexOfEnemy >= enemies.Count)
-                                    {
-                                        PlayersTurn = true;
-                                        return;
-                                    }
-                                    SelectEnemy();
+                                    
                                 }
                             }
                             
                         }
                     }
+                    
                 }
                 
             }
-            //PlayersTurn = true;
-        }
-        //
-        private void EnemyTurn()
-        {
-            foreach (UnitMovement unit in units)
+            indexOfEnemy++;
+            Debug.Log(indexOfEnemy + " " + "5");
+            if (indexOfEnemy >= enemies.Count)
             {
-                HexCoordinates coords = unit.GetComponent<HexCoordinates>();
-                coords.SetCoords();
+                indexOfEnemy = 0;
+                SelectUnit();
+                return;
             }
-            foreach (EnemyMovement enemy in enemies)
-            {
-                HexCoordinates coords = enemy.GetComponent<HexCoordinates>();
-                coords.SetCoords();
-            }
-            // skipAttack.onClick.RemoveAllListeners();
-            //skipAttack.interactable = false;
+            indexOfUnit = 0;
+            
+            Debug.Log("Enemy select 532" + " " + enemies[enemyID]);
+            Debug.Log(indexOfEnemy + " " + "1");
+            
             SelectEnemy();
-            //CheckEnemyKing();
-           // PlayersTurn = true;
         }
-        /*private void ResetTurn(UnitMovement selectedUnit)
+
+        private void EnemyAttack(int enemyID, Vector3Int lastEnemyPos)
         {
-            selectedUnit.MovementFinished -= ResetTurn;
-            BattleTurn(selectedUnit);
-            //PlayersTurn = true;
-            //Debug.Log("Finished turn");
-        }*/
+            //if (enemies[enemyID].)
+        }
+        
 
         private void BattleTurn(Hex selectedUnit)
         {
-            Debug.Log("battleTurn");
+            //Debug.Log("battleTurn");
             if (_unit.GetUnitType() == UnitType.melee)
             {
                 int kolvo = 0;
@@ -567,32 +557,29 @@ namespace HexSystem
                 {
                     if(indexOfUnit >= units.Count)
                     {
+                        indexOfUnit = 0;
                         ClearOldSelection();
+                        Debug.Log("Enemy select 635");
                         SelectEnemy();
                         return;
                     }
                     else
                     {
+                        indexOfEnemy = 0;
                         ClearOldSelection();
                         SelectUnit();
                         return;
                     }
-                    //StartCoroutine(EnemyTurnCoroutine());
-                    //PlayersTurn = false;
-                    //_isBattling = false;
-                    //EnemyTurn();
-                    //return;
+                   
                 }
                 else
                 {
+                    ClearOldSelection();
                     GlowEnemies(enemiesToGlow);
-                    Battling(selectedUnit);
+                    //Battling(selectedUnit);
                 }
             }
-            /*if(_unit.GetUnitType() == UnitType.king)
-            {
-                //StartCoroutine(EnemyTurnCoroutine());
-            }*/
+           
             if (_unit.GetUnitType() == UnitType.distant)
             {
                 int kolvo = 0;
@@ -619,38 +606,38 @@ namespace HexSystem
                 {
                     if (indexOfUnit >= units.Count)
                     {
+                        indexOfUnit = 0;
                         ClearOldSelection();
+                        Debug.Log("Enemy select 690");
                         SelectEnemy();
                         return;
                     }
                     else
                     {
+                        indexOfEnemy = 0;
                         ClearOldSelection();
                         SelectUnit();
                         return;
                     }
-                    //StartCoroutine(EnemyTurnCoroutine());
-                    //PlayersTurn = false;
-                    //_isBattling = false;
-                    //EnemyTurn();
-                   // return;
+                   
                 }
                 else
                 {
+                    ClearOldSelection();
                     GlowEnemies(enemiesToGlow);
+                    //Battling(selectedUnit);
                 }
             }
-            //skipAttack.interactable = true;
-            //skipAttack.onClick.AddListener(EnemyTurn);
+            
             _isBattling = true;
             
-           //Debug.Log("battle");
+          
            
         }
 
         private void Battling(Hex hexToAttack)
         {
-            //Debug.Log(_unit);
+           
             if (_unit.GetUnitType() == UnitType.melee)
             {
                 MeleeAttack(hexToAttack);
@@ -662,16 +649,7 @@ namespace HexSystem
                 DistantAttack(hexToAttack);
                 return;
             }
-            /*foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(_lastHex.HexCoords) )
-            {
-                if (hexGrid.GetTileAt(direction).IsEnemy() && hexGrid.GetTileAt(direction) == hexToAttack)
-                {
-                    Debug.Log($"{_unitToAttack}Attacks ENEMY on: {hexToAttack.HexCoords}");
-                   // Debug.Log(direction);
-                   PlayersTurn = true;
-                   _isBattling = false;
-                }
-            }*/
+           
         }
 
         private void DistantAttack(Hex hexToAttack)
@@ -681,35 +659,12 @@ namespace HexSystem
             foreach (Vector3Int direction in hexGrid.GetNeighboursInRangeOf2(_lastHex.HexCoords))
             {
                 neighbours.Add(direction);
-                /*if (hexGrid.GetTileAt(direction).IsEnemy() && hexGrid.GetTileAt(direction) == hexToAttack)
-                {
-                    _enemy.TakeDamage(_unit.GetUnitDamage());
-                    Debug.Log($"Удар!");
-                    // Debug.Log(direction);
-                    PlayersTurn = false;
-                    _isBattling = false;
-                    _unit = null;
-                    UnGlowEnemies(enemiesToGlow);
-                    enemiesToGlow.Clear();
-                    EnemyTurn();
-                }*/
+               
             }
             foreach (Vector3Int direction in hexGrid.GetNeighboursFor(_lastHex.HexCoords))
             {
                 neighbours.Add(direction);
-                //Debug.Log(direction);
-                /*if (hexGrid.GetTileAt(direction).IsEnemy() && hexGrid.GetTileAt(direction) == hexToAttack)
-                {
-                    _enemy.TakeDamage(_unit.GetUnitDamage());
-                    Debug.Log($"Удар!");
-                    // Debug.Log(direction);
-                    PlayersTurn = false;
-                    _isBattling = false;
-                    _unit = null;
-                    UnGlowEnemies(enemiesToGlow);
-                    enemiesToGlow.Clear();
-                    EnemyTurn();
-                }*/
+                
             }
             foreach (Vector3Int direction in neighbours)
             {
@@ -718,20 +673,23 @@ namespace HexSystem
                 {
                     _enemy.TakeDamage(_unit.GetUnitDamage());
                     Debug.Log($"Удар!");
-                    // Debug.Log(direction);
-                    //PlayersTurn = false;
-                    //_isBattling = false;
+                    
                     _unit = null;
                     UnGlowEnemies(enemiesToGlow);
                     enemiesToGlow.Clear();
-                    //StartCoroutine(EnemyTurnCoroutine());
+                    
                     if (indexOfUnit >= units.Count)
                     {
+                        //ClearOldSelection();
+                        indexOfUnit = 0;
+                        Debug.Log("Enemy select 801");
                         SelectEnemy();
                         return;
                     }
                     else
                     {
+                        //ClearOldSelection();
+                        indexOfEnemy = 0;
                         SelectUnit();
                         return;
                     }
@@ -743,38 +701,40 @@ namespace HexSystem
         {
             foreach (Vector3Int direction in hexGrid.GetNeighboursFor(_lastHex.HexCoords) )
             {
-                //Debug.Log(direction);
+               
                 if (hexGrid.GetTileAt(direction).IsEnemy() && hexGrid.GetTileAt(direction) == hexToAttack)
                 {
                     _enemy.TakeDamage(_unit.GetUnitDamage());
                     Debug.Log($"Удар!");
-                    // Debug.Log(direction);
-                    //PlayersTurn = false;
-                    //_isBattling = false;
+                    
                     _unit = null;
                     UnGlowEnemies(enemiesToGlow);
                     enemiesToGlow.Clear();
-                   //StartCoroutine(EnemyTurnCoroutine());
+                   
                     if(indexOfUnit >= units.Count)
                     {
+                        //ClearOldSelection();
+                        indexOfUnit = 0;
+                        Debug.Log("Enemy select 834");
                         SelectEnemy();
                         return;
                     }
                     else
                     {
+                        //ClearOldSelection();
+                        indexOfEnemy = 0;
                         SelectUnit();
                         return;
                     }
                 }
             }
         }
-        private IEnumerator EnemyTurnCoroutine()
+        private IEnumerator EnemyTurnCoroutine(float time)
         {
-            // Ждем 2 секунды перед ходом AI
-            yield return new WaitForSeconds(1f);
-            PlayersTurn = false;
-            _isBattling = false;
-            EnemyTurn();
+           
+            yield return new WaitForSeconds(time);
+
+            Debug.Log(indexOfEnemy);
 
         }
     }
