@@ -157,7 +157,8 @@ namespace HexSystem
             }
             Hex selectedHex = hexGO.GetComponent<Hex>();
 
-           
+            if (HandleHexOutOfRange(selectedHex.HexCoords) || HandleSelectedHexIsUnitHex(selectedHex.HexCoords))
+                return;
 
             HandleTargetHexSelected(selectedHex);
 
