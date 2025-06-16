@@ -369,6 +369,8 @@ MonoBehaviour:
   hexCoordinates: {fileID: 447670276703549478}
   unitManager: {fileID: 0}
   playerUI: {fileID: 7164987193315612903}
+  ghostObj: {fileID: 2125594439432712326, guid: 47ab7f515b74638429ce118fba9f9801,
+    type: 3}
 --- !u!114 &447670276703549478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,7 +1045,7 @@ PrefabInstance:
     - target: {fileID: 8596124613087246167, guid: e9af6950721a1af4ebd59056de52d6d4,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278190335
+      value: 4278190222
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

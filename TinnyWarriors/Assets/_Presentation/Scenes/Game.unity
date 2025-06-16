@@ -1645,6 +1645,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4432790625200142318}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &258056019 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 365474040773689806, guid: 09782332e90eef5458333a0121ac64b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6062812999585191011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23540da2a96eb0647a5bdb71a602d8bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &261241006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6747832703039318323, guid: 2b37bd7f1ba4f89419f7ccd1693da8a0,
@@ -3321,6 +3333,10 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 2104269658, guid: bb5e3aa98882c5c40823c55a18594eb2, type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     - target: {fileID: 2104269661, guid: bb5e3aa98882c5c40823c55a18594eb2, type: 3}
       propertyPath: hexGrid
       value: 
@@ -3853,6 +3869,11 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 298566546562232935, guid: b8e2fa59d5ad48944b1afe97416a25a2,
+        type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     - target: {fileID: 978159184877703828, guid: b8e2fa59d5ad48944b1afe97416a25a2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6799,6 +6820,11 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 4152501873684175311, guid: b66be2429e8944d4db2ba52fdf81b9a6,
+        type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     - target: {fileID: 7087126053993684099, guid: b66be2429e8944d4db2ba52fdf81b9a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7023,6 +7049,11 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 6559791176527689805, guid: 503d674d730c9b34aa2bff7c1fd5f673,
+        type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8033,6 +8064,11 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 6559791176527689805, guid: 503d674d730c9b34aa2bff7c1fd5f673,
+        type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9744,7 +9780,7 @@ Light:
   m_BounceIntensity: 9.97
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.02e-43, y: 2.07e-43, z: 7.853e-42, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: -9.557055e-37}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -10517,6 +10553,11 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 447670276703549477, guid: f886a7a5ad8de46418ba53ef4eb8240f,
+        type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     - target: {fileID: 2808554711960595971, guid: f886a7a5ad8de46418ba53ef4eb8240f,
         type: 3}
       propertyPath: m_Name
@@ -11154,6 +11195,11 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 298566546562232935, guid: b8e2fa59d5ad48944b1afe97416a25a2,
+        type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     - target: {fileID: 978159184877703828, guid: b8e2fa59d5ad48944b1afe97416a25a2,
         type: 3}
       propertyPath: m_RootOrder
@@ -12212,6 +12258,10 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 2104269658, guid: bb5e3aa98882c5c40823c55a18594eb2, type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     - target: {fileID: 2104269661, guid: bb5e3aa98882c5c40823c55a18594eb2, type: 3}
       propertyPath: hexGrid
       value: 
@@ -12293,6 +12343,11 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 447670276703549477, guid: f886a7a5ad8de46418ba53ef4eb8240f,
+        type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     - target: {fileID: 2808554711960595971, guid: f886a7a5ad8de46418ba53ef4eb8240f,
         type: 3}
       propertyPath: m_Name
@@ -12357,6 +12412,80 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 9161385179631385579}
   m_SourcePrefab: {fileID: 100100000, guid: f886a7a5ad8de46418ba53ef4eb8240f, type: 3}
+--- !u!1001 &6062812999585191011
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 365474040773689806, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: ghost
+      value: 
+      objectReference: {fileID: 8746164545165914215, guid: c3b0a261d8706394f95274446a4b5b60,
+        type: 3}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740424280136286130, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5127536232681260341, guid: 09782332e90eef5458333a0121ac64b5,
+        type: 3}
+      propertyPath: m_Name
+      value: GhostSpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 09782332e90eef5458333a0121ac64b5, type: 3}
 --- !u!1001 &6788941163527086565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12373,6 +12502,10 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 583026136}
+    - target: {fileID: 1706262916, guid: b719d4fbd5e29744fa7d9db09e75bf94, type: 3}
+      propertyPath: ghostSpawner
+      value: 
+      objectReference: {fileID: 258056019}
     - target: {fileID: 1706262919, guid: b719d4fbd5e29744fa7d9db09e75bf94, type: 3}
       propertyPath: hexGrid
       value: 
@@ -12584,3 +12717,4 @@ SceneRoots:
   - {fileID: 333667961}
   - {fileID: 916818766}
   - {fileID: 2470496737912438868}
+  - {fileID: 6062812999585191011}

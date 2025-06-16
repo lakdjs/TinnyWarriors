@@ -27,6 +27,7 @@ namespace UnitSystem
         [SerializeField] protected HexCoordinates hexCoordinates;
         [SerializeField] private UnitManager unitManager;
         [SerializeField] private PlayerUI playerUI;
+        [SerializeField] private GhostSpawner ghostSpawner;
  
         private HexCoordinates _hexCoordinates;
 
@@ -87,12 +88,15 @@ namespace UnitSystem
                 }
                 hexCoordinates = this.gameObject.GetComponent<HexCoordinates>();
                 Debug.Log(hexCoordinates);
+                Vector3 currPos = transform.position;
+                Debug.Log(currPos);
                 Vector3Int currCoords =
                     HexCoordinates.ConvertPositionToOffset(gameObject.transform.position);
                 hexGrid.GetTileAt(new Vector3Int(currCoords.x, 0,
                     currCoords.z)).SetType(HexType.Default);
                 Destroy(gameObject);
-                
+                ghostSpawner.SpawnGhost(currPos);
+
             }
         }
         public void Wining()
