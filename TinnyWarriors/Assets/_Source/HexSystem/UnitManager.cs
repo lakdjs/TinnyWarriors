@@ -38,6 +38,7 @@ namespace HexSystem
         [SerializeField] private UnitMovement unitKing;
         [SerializeField] private Unit enemyKingUnit;
         [SerializeField] private Unit kingUnit;
+        [SerializeField] private GameObject selectionManager;
         public bool PlayersTurn { get; private set; } = true;
         public bool EnemiesTurn { get; private set; } = false;
 
@@ -113,7 +114,22 @@ namespace HexSystem
                
             }
         }
-
+        public void CheckEnemies()
+        {
+            if(enemies.Count <= 0)
+            {
+                winingAction.Invoke();
+                selectionManager.SetActive(false);
+            }
+        }
+        public void CheckUnits()
+        {
+            if(units.Count <= 0)
+            {
+                losingAction.Invoke();
+                selectionManager.SetActive(false);
+            }
+        }
         public void DeleteEnemyFromList(EnemyMovement enemy)
         {
             enemies.Remove(enemy);
@@ -165,24 +181,33 @@ namespace HexSystem
         }
         private void SelectUnit()
         {
-            if(enemies.Count <= 0)
+           
+            if(units.Count >= 1)
             {
-                winingAction.Invoke();
+                foreach (UnitMovement unit in units)
+                {
+                    HexCoordinates coordss = unit.GetComponent<HexCoordinates>();
+                    coordss.SetCoords();
+                }
             }
-            if(units.Count <= 0)
+            else
             {
                 losingAction.Invoke();
             }
-            foreach (UnitMovement unit in units)
+
+            if(enemies.Count >=1)
             {
-                HexCoordinates coordss = unit.GetComponent<HexCoordinates>();
-                coordss.SetCoords();
+                foreach (EnemyMovement enemy in enemies)
+                {
+                    HexCoordinates coordss = enemy.GetComponent<HexCoordinates>();
+                    coordss.SetCoords();
+                }
             }
-            foreach (EnemyMovement enemy in enemies)
+            else
             {
-                HexCoordinates coordss = enemy.GetComponent<HexCoordinates>();
-                coordss.SetCoords();
+                winingAction.Invoke();
             }
+            
 
             PlayersTurn = true;
             selectedUnit = units[indexOfUnit];
@@ -193,11 +218,11 @@ namespace HexSystem
         }
         private void SelectEnemy()
         {
-            if (enemies.Count <= 0)
+            if (enemies.Count == 0)
             {
                 winingAction.Invoke();
             }
-            if (units.Count <= 0)
+            if (units.Count == 0)
             {
                 losingAction.Invoke();
             }
@@ -220,7 +245,10 @@ namespace HexSystem
         }
         private void PrepareUnitForMovement(UnitMovement unitReference)
         {
-           
+           if(enemies.Count == 0)
+            {
+                winingAction.Invoke();
+            }
             selectedUnit = unitReference;
             _unit = unitReference.gameObject.GetComponent<Unit>();
             _selectedUnitCoords = unitReference.gameObject.GetComponent<HexCoordinates>();
@@ -230,16 +258,30 @@ namespace HexSystem
 
         private void ClearOldSelection()
         {
-            foreach (UnitMovement unit in units)
+            if (units.Count >= 1)
             {
-                HexCoordinates coords = unit.GetComponent<HexCoordinates>();
-                coords.SetCoords();
-               
+                foreach (UnitMovement unit in units)
+                {
+                    HexCoordinates coordss = unit.GetComponent<HexCoordinates>();
+                    coordss.SetCoords();
+                }
             }
-            foreach (EnemyMovement enemy in enemies)
+            else
             {
-                HexCoordinates coords = enemy.GetComponent<HexCoordinates>();
-                coords.SetCoords();
+                losingAction.Invoke();
+            }
+
+            if (enemies.Count >= 1)
+            {
+                foreach (EnemyMovement enemy in enemies)
+                {
+                    HexCoordinates coordss = enemy.GetComponent<HexCoordinates>();
+                    coordss.SetCoords();
+                }
+            }
+            else
+            {
+                winingAction.Invoke();
             }
             _selectedUnitCoords = null;
             _previouslySelectedHex = null;
@@ -534,6 +576,10 @@ namespace HexSystem
                 
             }
             indexOfEnemy++;
+            if (units.Count == 0)
+            {
+                losingAction.Invoke();
+            }
             Debug.Log(indexOfEnemy + " " + "5");
             if (indexOfEnemy >= enemies.Count)
             {
@@ -694,7 +740,10 @@ namespace HexSystem
                     _unit = null;
                     UnGlowEnemies(enemiesToGlow);
                     enemiesToGlow.Clear();
-                    
+                    if (enemies.Count == 0)
+                    {
+                        winingAction.Invoke();
+                    }
                     if (indexOfUnit >= units.Count)
                     {
                         //ClearOldSelection();
@@ -727,7 +776,10 @@ namespace HexSystem
                     _unit = null;
                     UnGlowEnemies(enemiesToGlow);
                     enemiesToGlow.Clear();
-                   
+                    if(enemies.Count == 0)
+                    {
+                        winingAction.Invoke();
+                    }
                     if(indexOfUnit >= units.Count)
                     {
                         //ClearOldSelection();

@@ -45,6 +45,7 @@ namespace HexSystem
         public void OnDestroy()
         {
             _unitManager.DeleteEnemyFromList(this);
+            _unitManager.CheckEnemies   ();
         }
 
         public void Deselect()

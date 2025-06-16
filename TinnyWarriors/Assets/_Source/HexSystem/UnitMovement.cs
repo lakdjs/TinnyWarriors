@@ -53,6 +53,7 @@ namespace HexSystem
         private void OnDestroy()
         {
             _unitManager.DeleteUnitFromList(this);
+            _unitManager.CheckUnits();
         }
         public void Deselect()
         {
