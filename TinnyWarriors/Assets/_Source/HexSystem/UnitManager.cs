@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnitSystem;
 using UnityEngine;
@@ -67,7 +68,7 @@ namespace HexSystem
         {
             PlayerSelected = false;
             _isBattling = false;
-            skipAttack.interactable = false;
+            //skipAttack.interactable = false;
         }
         public void Construct(Education education)
         {
@@ -484,8 +485,8 @@ namespace HexSystem
                 HexCoordinates coords = enemy.GetComponent<HexCoordinates>();
                 coords.SetCoords();
             }
-            skipAttack.onClick.RemoveAllListeners();
-            skipAttack.interactable = false;
+           // skipAttack.onClick.RemoveAllListeners();
+            //skipAttack.interactable = false;
             CheckEnemyKing();
            // PlayersTurn = true;
         }
@@ -513,15 +514,20 @@ namespace HexSystem
                 }
                 if(kolvo == 0)
                 {
-                    PlayersTurn = false;
-                    _isBattling = false;
-                    EnemyTurn();
+                    StartCoroutine(EnemyTurnCoroutine());
+                    //PlayersTurn = false;
+                    //_isBattling = false;
+                    //EnemyTurn();
                     return;
                 }
                 else
                 {
                     GlowEnemies(enemiesToGlow);
                 }
+            }
+            if(_unit.GetUnitType() == UnitType.king)
+            {
+                StartCoroutine(EnemyTurnCoroutine());
             }
             if (_unit.GetUnitType() == UnitType.distant)
             {
@@ -547,9 +553,10 @@ namespace HexSystem
                 }
                 if (kolvo == 0)
                 {
-                    PlayersTurn = false;
-                    _isBattling = false;
-                    EnemyTurn();
+                    StartCoroutine(EnemyTurnCoroutine());
+                    //PlayersTurn = false;
+                    //_isBattling = false;
+                    //EnemyTurn();
                     return;
                 }
                 else
@@ -557,8 +564,8 @@ namespace HexSystem
                     GlowEnemies(enemiesToGlow);
                 }
             }
-            skipAttack.interactable = true;
-            skipAttack.onClick.AddListener(EnemyTurn);
+            //skipAttack.interactable = true;
+            //skipAttack.onClick.AddListener(EnemyTurn);
             _isBattling = true;
             
            //Debug.Log("battle");
@@ -636,12 +643,12 @@ namespace HexSystem
                     _enemy.TakeDamage(_unit.GetUnitDamage());
                     Debug.Log($"Удар!");
                     // Debug.Log(direction);
-                    PlayersTurn = false;
-                    _isBattling = false;
+                    //PlayersTurn = false;
+                    //_isBattling = false;
                     _unit = null;
                     UnGlowEnemies(enemiesToGlow);
                     enemiesToGlow.Clear();
-                    EnemyTurn();
+                    StartCoroutine(EnemyTurnCoroutine());
                 }
             }
         }
@@ -656,14 +663,24 @@ namespace HexSystem
                     _enemy.TakeDamage(_unit.GetUnitDamage());
                     Debug.Log($"Удар!");
                     // Debug.Log(direction);
-                    PlayersTurn = false;
-                    _isBattling = false;
+                    //PlayersTurn = false;
+                    //_isBattling = false;
                     _unit = null;
                     UnGlowEnemies(enemiesToGlow);
                     enemiesToGlow.Clear();
-                    EnemyTurn();
+                    StartCoroutine(EnemyTurnCoroutine());
+                    
                 }
             }
+        }
+        private IEnumerator EnemyTurnCoroutine()
+        {
+            // Ждем 2 секунды перед ходом AI
+            yield return new WaitForSeconds(1f);
+            PlayersTurn = false;
+            _isBattling = false;
+            EnemyTurn();
+
         }
     }
 }
