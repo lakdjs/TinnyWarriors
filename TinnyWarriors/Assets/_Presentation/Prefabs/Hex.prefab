@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glowMaterial: {fileID: 2100000, guid: d92db64386191a145b053a501ccfe0e4, type: 2}
+  glowEnemyMaterial: {fileID: 0}
 --- !u!114 &2665991575200247759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,13 +178,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 68f09539d4fca4e4a8393aa750c472d7,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.20343918
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 68f09539d4fca4e4a8393aa750c472d7,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 68f09539d4fca4e4a8393aa750c472d7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.7319
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 68f09539d4fca4e4a8393aa750c472d7,
         type: 3}
