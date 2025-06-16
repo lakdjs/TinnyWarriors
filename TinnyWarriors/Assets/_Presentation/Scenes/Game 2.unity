@@ -2223,8 +2223,6 @@ MonoBehaviour:
   enemies:
   - {fileID: 1419641047}
   - {fileID: 1678404197}
-  - {fileID: 0}
-  - {fileID: 0}
   hexGrid: {fileID: 1029880857}
   cameraRotation: {fileID: 0}
   education: {fileID: 0}
@@ -4668,6 +4666,7 @@ MonoBehaviour:
   unitKing: {fileID: 0}
   enemyKingUnit: {fileID: 0}
   kingUnit: {fileID: 0}
+  selectionManager: {fileID: 0}
   selectedUnit: {fileID: 0}
 --- !u!1001 &597634791
 PrefabInstance:
@@ -8514,6 +8513,8 @@ MonoBehaviour:
   buttonLobbyWin: {fileID: 1029119890}
   buttonRetry: {fileID: 576808999}
   buttonLobbyLose: {fileID: 796780693}
+  win: {fileID: 0}
+  lose: {fileID: 0}
 --- !u!4 &1180836626
 Transform:
   m_ObjectHideFlags: 0
